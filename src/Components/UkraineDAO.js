@@ -123,7 +123,7 @@ round(value){
 
         
         
-        let dollar = <p>Total Value: $<AnimatedNumber component="text" value={this.state.dollarValue} style={{
+        let dollar = <p>Total Donated Value: $<AnimatedNumber component="text" value={this.state.dollarValue} style={{
             transition: '0.1s ease-out',
             fontSize: 19,
             cursor:'pointer',
