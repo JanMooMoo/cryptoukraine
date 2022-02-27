@@ -3,7 +3,6 @@ import Flag from '../flag2.png';
 
 class Navbar extends Component {
     render() {
-       // <input type="checkbox" id="switch" /><label for="switch">Toggle</label>
         return (
             <div className='navbar-border'>
                  <div className='navbar'>
