@@ -44,7 +44,7 @@ async loadBalance(){
     const usdtBal = await this.state.usdtContract.methods.balanceOf("0x165CD37b4C644C2921454429E7F9358d18A45e14").call();
     const usdtBalance = usdtBal;
  
-    this.setState({tether:usdtBalance/1000000},()=>console.log('bab',this.state.tether))
+    this.setState({tether:usdtBalance/1000000},()=>console.log())
 
     this.setState({dollarValue:this.state.dollarPerEth * this.state.ethBalance + this.state.tether},()=>console.log())
     
@@ -57,9 +57,8 @@ getDollarValue(){
 
 fetch('https://api.coingecko.com/api/v3/simple/price?ids=ethereum&vs_currencies=usd')
         .then(res => res.json())
-            .then((data) => {    
-                console.log('value',data.ethereum.usd)           
-                this.setState({dollarPerEth: data.ethereum.usd},()=>console.log('this',this.state.dollarPerEth))
+            .then((data) => {               
+                this.setState({dollarPerEth: data.ethereum.usd},()=>console.log())
             }               
               )
               .catch(console.log)
