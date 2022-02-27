@@ -34,7 +34,7 @@ class Ethbalance extends Component {
   
     render() {
 
-        let eth =<p>Ethereum Balance: <AnimatedNumber component="text" value={this.props.ethBalance} style={{
+        let eth =<p>Ether Balance: <AnimatedNumber component="text" value={this.props.ethBalance} style={{
             transition: '0.1s ease-out',
             fontSize: 19,
             cursor:'pointer',

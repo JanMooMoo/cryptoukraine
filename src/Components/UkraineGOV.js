@@ -31,12 +31,10 @@ class UkraineGOV extends Component {
 
 async loadBalance(){
 
-    const blockNumber = await web3.eth.getBlockNumber();
-    this.setState({blocks:blockNumber},()=>console.log());
 
     const balance = await web3.eth.getBalance("0x165CD37b4C644C2921454429E7F9358d18A45e14");
     const usdt = new web3.eth.Contract(usdt_abi, usdt_address);
-    this.setState({ethBalance:web3.utils.fromWei(balance)},()=>console.log(this.state.ethBalance/1000000))
+    this.setState({ethBalance:web3.utils.fromWei(balance)},()=>console.log())
 
     this.setState({usdtContract:usdt});
 
@@ -135,7 +133,7 @@ roundUsdt(value){
         }
 
 
-        let eth =<p>Ethereum Balance: <AnimatedNumber component="text" value={this.state.dollarValue} style={{
+        let eth =<p>Ether Balance: <AnimatedNumber component="text" value={this.state.dollarValue} style={{
             transition: '0.1s ease-out',
             fontSize: 19,
             cursor:'pointer',

@@ -16,6 +16,7 @@ class UkraineDAO extends Component {
         this.state = {
 
           ethBalance:0,
+          wethBalance:0,
           bloackNumber:0,
           dollarPerEth:0,
           dollarValue:0,
@@ -26,12 +27,11 @@ class UkraineDAO extends Component {
 async loadBalance(){
 
     const web3 = new Web3(new Web3.providers.HttpProvider("https://mainnet.infura.io/v3/72e114745bbf4822b987489c119f858b"))
-    const blockNumber = await web3.eth.getBlockNumber();
-    this.setState({blocks:blockNumber},()=>console.log());
+   
 
     const balance = await web3.eth.getBalance("0x4508401BaDe71aE75fE70c97fe585D734f975502");
-    this.setState({ethBalance:web3.utils.fromWei(balance)},()=>console.log())
-    this.setState({dollarValue:this.state.dollarPerEth * this.state.ethBalance})
+    this.setState({ethBalance:web3.utils.fromWei(balance),wethBalance:1000},()=>console.log())
+    this.setState({dollarValue:this.state.dollarPerEth * (this.state.wethBalance + parseInt(this.state.ethBalance) )})
 
     }
 
@@ -51,13 +51,14 @@ fetch('https://api.coingecko.com/api/v3/simple/price?ids=ethereum&vs_currencies=
 
 async getLogo(){
 
-       fetch('https://api.coingecko.com/api/v3/coins/ethereum?localization=false&tickers=false&market_data=false&community_data=false&developer_data=false&sparkline=false')
+
+       /*fetch('https://api.coingecko.com/api/v3/coins/ethereum?localization=false&tickers=false&market_data=false&community_data=false&developer_data=false&sparkline=false')
        .then(res => res.json())
        .then((data) => {
          
          this.setState({logo: data.image.small},()=>(console.log()))}
        )
-       .catch(console.log)
+       .catch(console.log)*/
    
      }
 
@@ -108,7 +109,7 @@ round(value){
         }
 
 
-        let eth =<p>Ethereum Balance: <AnimatedNumber component="text" value={this.state.dollarValue} style={{
+        let eth =<p>Ether Balance: <AnimatedNumber component="text" value={this.state.dollarValue} style={{
             transition: '0.1s ease-out',
             fontSize: 19,
             cursor:'pointer',
@@ -148,6 +149,7 @@ round(value){
                <div>Website: <a href="https://www.ukrainedao.love/" target ="blank">https://www.ukrainedao.love/</a></div>
                <h4>Ethereum Wallet: <a href="https://etherscan.io/address/0x4508401bade71ae75fe70c97fe585d734f975502" target ="blank">0x4508401BaDe71aE75fE70c97fe585D734f975502</a></h4>
                {eth}
+               <p> Wrapped Ether Balance: {this.state.wethBalance} WETH <a href="https://etherscan.io/tx/0x398f462ecf1782d7f3970781cddb49542a66b40bce06a72d0bd04a10a31fed8f" target ="blank">Reserved On Bid</a></p>
                {dollar}
 
                <div className="foot">
