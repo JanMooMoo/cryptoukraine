@@ -34,7 +34,7 @@ async loadBalance(){
     const balance = await web3.eth.getBalance("0x4508401BaDe71aE75fE70c97fe585D734f975502");
     this.setState({ethBalance:web3.utils.fromWei(balance),wethBalance:1102.5},()=>console.log())
     this.setState({dollarValue:this.state.dollarPerEth * (this.state.wethBalance + parseInt(this.state.ethBalance))},()=>console.log())
-    setInterval(()=>this.loadBalance(),14000)
+    setInterval(()=>this.loadBalance(),21000)
 
     }
 

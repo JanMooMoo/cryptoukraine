@@ -67,13 +67,12 @@ async loadBalance(){
   
   }
  // this.setState({spentUSDT:events},()=>console.log('eve',this.state.spentUSDT))
-  
-   
+  this.setState({dollarValue:this.state.dollarPerEth * this.state.ethBalance + this.state.tether},()=>console.log())
+  this.setState({totalDonation:this.state.dollarPerEth * this.state.spentEth + this.state.spentUSDT + this.state.dollarValue},()=>console.log())
+ 
   }).catch((err)=>console.error(err))
 }
-this.setState({dollarValue:this.state.dollarPerEth * this.state.ethBalance + this.state.tether},()=>console.log())
-this.setState({totalDonation:this.state.dollarPerEth * this.state.spentEth + this.state.spentUSDT + this.state.dollarValue},()=>console.log())
-
+//this.setState({dollarValue:this.state.dollarPerEth * this.state.ethBalance + this.state.tether},()=>console.log())
 
     }
 

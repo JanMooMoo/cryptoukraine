@@ -45,19 +45,15 @@ async loadBalance(){
     fetch('https://api.blockcypher.com/v1/btc/main/addrs/357a3So9CbsNfBBgFYACGvxxS6tMaDoa1P/balance')
     .then(res => res.json())
     .then((data) => {
-            console.log(data)
+            //console.log(data)
 
-      this.setState({btcBalance:data.final_balance/100000000, spentBTC:data.total_sent/100000000,totalBTC:data.total_received/100000000},()=>console.log()) 
-      this.setState({dollarValue:this.state.dollarPerbtc * this.state.btcBalance,totalDonation:this.state.dollarPerbtc * this.state.totalBTC},()=>console.log())
-      //this.setState({totalDonation:this.state.dollarPerbtc * this.state.totalBTC},()=>console.log()) 
+      this.setState({btcBalance:data.balance/100000000, spentBTC:data.total_sent/100000000,totalBTC:data.total_received/100000000}) 
+      this.setState({dollarValue:this.state.dollarPerbtc * this.state.btcBalance})
+      this.setState({totalDonation:parseInt(this.state.dollarPerbtc) * parseInt(this.state.totalBTC)},()=>console.log()) 
     }
     
       )
     .catch(console.log)
-    
-
-
-
     }
 
 
@@ -187,9 +183,13 @@ roundUsdt(value){
         )}
         duration={1500}
         formatValue={n=>this.roundDollar(n)}></AnimatedNumber> </p>;
+
+
+        let links= <div><a href="https://www.blockchain.com/btc/address/357a3So9CbsNfBBgFYACGvxxS6tMaDoa1P" target ="blank"> Moved:  {numeral(this.state.spentBTC).format('0,0.0000')} BTC</a>
+              <div> <a href="https://www.blockchain.com/btc/address/357a3So9CbsNfBBgFYACGvxxS6tMaDoa1P"target ="blank">Total Donated Value: ${numeral(this.state.totalDonation).format('0,0.')}</a></div></div>;
+
     
-      
-      
+  
       
         return (
             <div className='cards'>
@@ -203,8 +203,8 @@ roundUsdt(value){
                <h4>Bitcoin Wallet: <a href="https://www.blockchain.com/btc/address/357a3So9CbsNfBBgFYACGvxxS6tMaDoa1P" target ="blank">357a3So9CbsNfBBgFYACGvxxS6tMaDoa1P</a></h4>
                {btc}
                {dollar}
-               <a href="https://www.blockchain.com/btc/address/357a3So9CbsNfBBgFYACGvxxS6tMaDoa1P" target ="blank"> Moved:  {numeral(this.state.spentBTC).format('0,0.0000')} BTC</a>
-              <div> <a href="https://www.blockchain.com/btc/address/357a3So9CbsNfBBgFYACGvxxS6tMaDoa1P"target ="blank">Total Donated Value: ${numeral(this.state.totalDonation).format('0,0.')}</a></div>
+               {links}
+              
 
                <div className="foot">
                 <h4>The government of Ukraine is now accepting cryptocurrency donations. Bitcoin, Ethereum & USDT.</h4>
