@@ -47,7 +47,7 @@ async loadBalance(){
     .then(res => res.json())
     .then((data) => {
  
-      this.setState({btcBalance:data.balance/100000000, spentBTC:data.total_sent/100000000,totalBTC:data.total_received/100000000},()=>console.log('btc',this.state.btcBalance/100000000)) 
+      this.setState({btcBalance:data.balance/100000000, spentBTC:data.total_sent/100000000,totalBTC:data.total_received/100000000},()=>console.log()) 
       this.setState({dollarValue:this.state.dollarPerbtc * this.state.btcBalance},()=>console.log())
       this.setState({totalDonation:this.state.dollarPerbtc * this.state.totalBTC},()=>console.log())   }
     
@@ -65,14 +65,12 @@ getDollarValue(){
 fetch('https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd')
         .then(res => res.json())
             .then((data) => {               
-                this.setState({dollarPerbtc: data.bitcoin.usd},()=>console.log('check',data))
-                setInterval(()=>this.loadBalance(),60000)
-
+                this.setState({dollarPerbtc: data.bitcoin.usd},()=>console.log())
+               
             }               
               )
               .catch(console.log)
-
-           
+              setInterval(()=>this.loadBalance(),60000)
 
 }  
 
@@ -111,8 +109,8 @@ roundUsdt(value){
     
     render() {
 
-        let fontColor = 'rgb(154, 236, 87)';
-        if(this.state.prevBtc < this.state.btcBalance){
+        let fontColor = 'rgb(240, 243, 237)';
+        if(this.state.prevBtc < this.state.btcBalance && this.state.prevBtc !== 0){
             fontColor = 'rgb(117, 202, 47)';
         }
         else if(this.state.prevBtc > this.state.btcBalance){
@@ -124,8 +122,8 @@ roundUsdt(value){
 
 
 
-        let fontColor2 = 'rgb(154, 236, 87)';
-        if(this.state.prevState < this.state.dollarValue){
+        let fontColor2 = 'rgb(240, 243, 237)';
+        if(this.state.prevState < this.state.dollarValue && this.state.prevBtc !== 0){
             fontColor2 = 'rgb(117, 202, 47)';
         }
         else if(this.state.prevState > this.state.dollarValue){

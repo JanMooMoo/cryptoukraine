@@ -62,7 +62,7 @@ async loadBalance(){
   let spent = 0
   for (var i = 0; i <= transactions.length - 1; i++){
       //spent + (transactions[].returnValues.value/1000000)
-      this.setState({spentUSDT:parseInt((this.state.spentUSDT + (transactions[i].returnValues.value/1000000)))},()=>console.log('ds',this.state.spentUSDT))
+      this.setState({spentUSDT:parseInt((this.state.spentUSDT + (transactions[i].returnValues.value/1000000)))},()=>console.log())
   
   }
  // this.setState({spentUSDT:events},()=>console.log('eve',this.state.spentUSDT))
@@ -98,7 +98,6 @@ async getLogo(){
         fetch('https://blockchain.info/rawaddr/357a3So9CbsNfBBgFYACGvxxS6tMaDoa1P?fbclid=IwAR2o5Ap0KIZTUCv7hnEscQppvIiZWKCHBvZrGsNuhJzWE30jSnfkLB_BuKQ')
        .then(res => res.json())
        .then((data) => {
-         console.log('check',data)
        //  this.setState({logo: data.image.small},()=>(console.log()))}
        }
        )
@@ -138,7 +137,7 @@ roundUsdt(value){
     render() {
 
         let fontColor = 'rgb(154, 236, 87)';
-        if(this.state.prevEth < this.state.ethBalance){
+        if(this.state.prevEth < this.state.ethBalance && this.state.prevEth !== 0){
             fontColor = 'rgb(117, 202, 47)';
         }
         else if(this.state.prevEth > this.state.ethBalance){
@@ -151,7 +150,7 @@ roundUsdt(value){
 
 
         let fontColor2 = 'rgb(154, 236, 87)';
-        if(this.state.prevState < this.state.dollarValue){
+        if(this.state.prevState < this.state.dollarValue && this.state.prevState !== 0){
             fontColor2 = 'rgb(117, 202, 47)';
         }
         else if(this.state.prevState > this.state.dollarValue){
@@ -164,7 +163,7 @@ roundUsdt(value){
 
 
         let fontColor3 = 'rgb(154, 236, 87)';
-        if(this.state.prevUSDT < this.state.tether){
+        if(this.state.prevUSDT < this.state.tether && this.state.prevUSDT !== 0){
             fontColor3 = 'rgb(117, 202, 47)';
         }
         else if(this.state.prevUSDT > this.state.tether){

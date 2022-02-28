@@ -2,6 +2,8 @@ import React, {Component} from 'react';
 import './App.css';
 import Navbar from './Components/Navbar';
 import UkraineDAO from './Components/UkraineDAO';
+import Unchained from './Components/Unchained';
+
 import UkraineGOV from './Components/UkraineGOV';
 import UkraineGOV_BTC from './Components/UkraineGOV_BTC';
 
@@ -49,6 +51,10 @@ class App extends Component {
         
         <div className="column">
         <UkraineDAO/></div>   
+
+        <div className="column">
+        <Unchained/></div>   
+
 
 
         <div>

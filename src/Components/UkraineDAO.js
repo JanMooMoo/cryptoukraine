@@ -3,8 +3,6 @@ import AnimatedNumber from 'react-animated-number';
 import ukraineDaoLogo from '../UkraineDao.jpg';
 
 
-
-
 let Web3 = require('web3');
 let numeral = require('numeral');
 
@@ -20,17 +18,22 @@ class UkraineDAO extends Component {
           bloackNumber:0,
           dollarPerEth:0,
           dollarValue:0,
+
+          prevState:0,
+          prevEth:0,
+          prevUSDT:0,
         }
     }
     
 
 async loadBalance(){
+    this.setState({prevEth:this.state.ethBalance,prevState:this.state.dollarValue},()=>console.log)
 
     const web3 = new Web3(new Web3.providers.HttpProvider("https://mainnet.infura.io/v3/72e114745bbf4822b987489c119f858b"))
    
 
     const balance = await web3.eth.getBalance("0x4508401BaDe71aE75fE70c97fe585D734f975502");
-    this.setState({ethBalance:web3.utils.fromWei(balance),wethBalance:1000},()=>console.log())
+    this.setState({ethBalance:web3.utils.fromWei(balance),wethBalance:1102.5},()=>console.log())
     this.setState({dollarValue:this.state.dollarPerEth * (this.state.wethBalance + parseInt(this.state.ethBalance) )})
 
     }
@@ -49,7 +52,19 @@ fetch('https://api.coingecko.com/api/v3/simple/price?ids=ethereum&vs_currencies=
 }  
 
 
-async getLogo(){
+async getInternal(){
+
+    fetch('https://api.etherscan.io/api?module=account&action=tokenbalance&contractaddress=0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48&address=0x165CD37b4C644C2921454429E7F9358d18A45e14&tag=latest&apikey=ZPRBBU2E6Z4QMEXPI7BWMCMVK7I6XZ6ZXE')
+        .then(res => res.json())
+            .then((data) => {          
+                //this.setState({dollarPerEth: data.ethereum.usd},()=>
+                console.log(data)
+            }               
+              )
+              .catch(console.log)
+              setInterval(()=>this.loadBalance(),15000)
+
+
 
 /*    fetch('https://rpc.testnet.near.org jsonrpc=2.0 id=dontcare method=query' {
   params:='{
@@ -59,7 +74,27 @@ async getLogo(){
   }'
 }*?
 
-       /*fetch('https://api.coingecko.com/api/v3/coins/ethereum?localization=false&tickers=false&market_data=false&community_data=false&developer_data=false&sparkline=false')
+https://api.etherscan.io/api
+   ?module=account
+   &action=txlistinternal
+   &address=0x2c1ba59d6f58433fb1eaee7d20b26ed83bda51a3
+   &startblock=0
+   &endblock=2702578
+   &page=1
+   &offset=10
+   &sort=asc
+   &apikey=YourApiKeyToken
+
+    /*fetch('https://api.etherscan.io/api
+   ?module=account
+   &action=txlistinternal
+   &address=0x4508401BaDe71aE75fE70c97fe585D734f975502
+   &startblock=0
+   &endblock=2702578
+   &page=1
+   &offset=10
+   &sort=asc
+   &apikey=YourApiKeyToken')
        .then(res => res.json())
        .then((data) => {
          
@@ -92,31 +127,31 @@ round(value){
     render() {
 
         let fontColor = 'rgb(154, 236, 87)';
-        if(this.state.ethBalance < this.state.ethBalance){
-            fontColor = 'rgb(98, 175, 34)';
+        if(this.state.prevEth < this.state.ethBalance && this.state.prevEth !== 0){
+            fontColor = 'rgb(117, 202, 47)';
         }
-        else if(this.state.ethBalance > this.state.ethBalance){
+        else if(this.state.prevEth > this.state.ethBalance){
             fontColor = 'rgba(230, 26, 60)';
         }
         else{
-            fontColor = 'rgb(154, 236, 87)';
+            fontColor = 'rgb(240, 243, 237)';
         }
 
 
 
         let fontColor2 = 'rgb(154, 236, 87)';
-        if(this.state.dollarValue < this.state.dollarValue){
-            fontColor2 = 'rgb(98, 175, 34)';
+        if(this.state.prevState < this.state.dollarValue && this.state.prevState !== 0){
+            fontColor2 = 'rgb(117, 202, 47)';
         }
-        else if(this.state.dollarValue > this.state.dollarValue){
+        else if(this.state.prevState > this.state.dollarValue){
             fontColor2 = 'rgba(230, 26, 60)';
         }
         else{
-            fontColor2 = 'rgb(154, 236, 87)';
+            fontColor2 = 'rgb(240, 243, 237)';
         }
 
 
-        let eth =<p>Ether Balance: <AnimatedNumber component="text" value={this.state.dollarValue} style={{
+        let eth =<p>Ether Balance: <AnimatedNumber component="text" value={this.state.ethBalance} style={{
             transition: '0.1s ease-out',
             fontSize: 19,
             cursor:'pointer',
@@ -171,7 +206,7 @@ round(value){
         this._isMounted = true; 
         this.loadBalance();
         this.getDollarValue();
-       // this.getLogo();
+       // this.getInternal();
        
              
       }
