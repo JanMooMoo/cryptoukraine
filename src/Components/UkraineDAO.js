@@ -45,12 +45,19 @@ fetch('https://api.coingecko.com/api/v3/simple/price?ids=ethereum&vs_currencies=
             }               
               )
               .catch(console.log)
-              setInterval(()=>this.loadBalance(),5000)
+              setInterval(()=>this.loadBalance(),15000)
 }  
 
 
 async getLogo(){
 
+/*    fetch('https://rpc.testnet.near.org jsonrpc=2.0 id=dontcare method=query' {
+  params:='{
+    "request_type": "view_account",
+    "finality": "final",
+    "account_id": "nearkat.testnet"
+  }'
+}*?
 
        /*fetch('https://api.coingecko.com/api/v3/coins/ethereum?localization=false&tickers=false&market_data=false&community_data=false&developer_data=false&sparkline=false')
        .then(res => res.json())
@@ -162,6 +169,7 @@ round(value){
 
     componentDidMount() {
         this._isMounted = true; 
+        this.loadBalance();
         this.getDollarValue();
        // this.getLogo();
        

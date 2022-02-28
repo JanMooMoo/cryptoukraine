@@ -12,27 +12,27 @@ const web3 = new Web3(new Web3.providers.HttpProvider("https://mainnet.infura.io
 let numeral = require('numeral');
 
 
-class UkraineGOV extends Component {
+class UkraineGOV_BTC extends Component {
 
     constructor(props) {
         super(props);
         this.state = {
 
-          ethBalance:0,
+          btcBalance:0,
           tether:0,
-          bloackNumber:0,
-          dollarPerEth:0,
+          blockNumber:0,
+          dollarPerbtc:0,
           dollarValue:0,
-          usdtContract:[],
+          
 
           txUSDT:[],
-          spentUSDT:0,
-          spentEth:0,
+          spentBTC:0,
+          totalBTC:0,
           totalDonation:0,
 
 
           prevState:0,
-          prevEth:0,
+          prevBtc:0,
           prevUSDT:0,
           
         }
@@ -40,38 +40,21 @@ class UkraineGOV extends Component {
     
 
 async loadBalance(){
-    this.setState({prevEth:this.state.ethBalance,prevUSDT:this.state.tether,prevState:this.state.dollarValue},()=>console.log)
-
-    const balance = await web3.eth.getBalance("0x165CD37b4C644C2921454429E7F9358d18A45e14");
-    const usdt = new web3.eth.Contract(usdt_abi, usdt_address);
-    this.setState({ethBalance:web3.utils.fromWei(balance),spentEth:2129.9491},()=>console.log())
-
-    this.setState({usdtContract:usdt});
+    this.setState({prevBtc:this.state.btcBalance,prevUSDT:this.state.tether,prevState:this.state.dollarValue},()=>console.log)
 
 
-    const usdtBal = await this.state.usdtContract.methods.balanceOf("0x165CD37b4C644C2921454429E7F9358d18A45e14").call();
-    const usdtBalance = usdtBal;
+    fetch('https://api.blockcypher.com/v1/btc/main/addrs/357a3So9CbsNfBBgFYACGvxxS6tMaDoa1P/balance')
+    .then(res => res.json())
+    .then((data) => {
  
-    this.setState({tether:usdtBalance/1000000},()=>console.log())
-
+      this.setState({btcBalance:data.balance/100000000, spentBTC:data.total_sent/100000000,totalBTC:data.total_received/100000000},()=>console.log('btc',this.state.btcBalance/100000000)) 
+      this.setState({dollarValue:this.state.dollarPerbtc * this.state.btcBalance},()=>console.log())
+      this.setState({totalDonation:this.state.dollarPerbtc * this.state.totalBTC},()=>console.log())   }
     
-    if(this.state.spentUSDT === 0){
-    this.state.usdtContract.getPastEvents("Transfer",{filter: {from:'0x165cd37b4c644c2921454429e7f9358d18a45e14'},fromBlock: 0, toBlock:'latest'})
-  .then(events=>{
-  var transactions = events;
-  let spent = 0
-  for (var i = 0; i <= transactions.length - 1; i++){
-      //spent + (transactions[].returnValues.value/1000000)
-      this.setState({spentUSDT:parseInt((this.state.spentUSDT + (transactions[i].returnValues.value/1000000)))},()=>console.log('ds',this.state.spentUSDT))
-  
-  }
- // this.setState({spentUSDT:events},()=>console.log('eve',this.state.spentUSDT))
-  
-   
-  }).catch((err)=>console.error(err))
-}
-this.setState({dollarValue:this.state.dollarPerEth * this.state.ethBalance + this.state.tether},()=>console.log())
-this.setState({totalDonation:this.state.dollarPerEth * this.state.spentEth + this.state.spentUSDT + this.state.dollarValue},()=>console.log())
+      )
+    .catch(console.log)
+    
+
 
 
     }
@@ -79,38 +62,29 @@ this.setState({totalDonation:this.state.dollarPerEth * this.state.spentEth + thi
 
 getDollarValue(){
 
-fetch('https://api.coingecko.com/api/v3/simple/price?ids=ethereum&vs_currencies=usd')
+fetch('https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd')
         .then(res => res.json())
             .then((data) => {               
-                this.setState({dollarPerEth: data.ethereum.usd},()=>console.log())
+                this.setState({dollarPerbtc: data.bitcoin.usd},()=>console.log('check',data))
+                setInterval(()=>this.loadBalance(),60000)
+
             }               
               )
               .catch(console.log)
-              setInterval(()=>this.loadBalance(),15000)
+
+           
+
 }  
 
+fetch(){
+}
 
-
-async getLogo(){
-
-       //fetch('https://api.coingecko.com/api/v3/coins/ethereum?localization=false&tickers=false&market_data=false&community_data=false&developer_data=false&sparkline=false')
-       
-        fetch('https://blockchain.info/rawaddr/357a3So9CbsNfBBgFYACGvxxS6tMaDoa1P?fbclid=IwAR2o5Ap0KIZTUCv7hnEscQppvIiZWKCHBvZrGsNuhJzWE30jSnfkLB_BuKQ')
-       .then(res => res.json())
-       .then((data) => {
-         console.log('check',data)
-       //  this.setState({logo: data.image.small},()=>(console.log()))}
-       }
-       )
-       .catch(console.log)
-   
-     }
 
 
 
 round(value){
     if (value){  
-        return numeral(this.state.ethBalance).format('0,0.00000000');        
+        return numeral(this.state.btcBalance).format('0,0.0000');        
         }
         
     return 0;
@@ -138,10 +112,10 @@ roundUsdt(value){
     render() {
 
         let fontColor = 'rgb(154, 236, 87)';
-        if(this.state.prevEth < this.state.ethBalance){
+        if(this.state.prevBtc < this.state.btcBalance){
             fontColor = 'rgb(117, 202, 47)';
         }
-        else if(this.state.prevEth > this.state.ethBalance){
+        else if(this.state.prevBtc > this.state.btcBalance){
             fontColor = 'rgba(230, 26, 60)';
         }
         else{
@@ -176,7 +150,7 @@ roundUsdt(value){
 
 
 
-        let eth =<p>Ether Balance: <AnimatedNumber component="text" value={this.state.dollarValue} style={{
+        let btc =<p>Bitcoin Balance: <AnimatedNumber component="text" value={this.state.btcBalance} style={{
             transition: '0.1s ease-out',
             fontSize: 19,
             cursor:'pointer',
@@ -186,7 +160,7 @@ roundUsdt(value){
             perc === 100 ? {} : {color: fontColor}
         )}
         duration={1500}
-        formatValue={n=>this.round(n)}></AnimatedNumber> ETH</p>;
+        formatValue={n=>this.round(n)}></AnimatedNumber> BTC</p>;
 
         
         let usdt = <p>USDT: $<AnimatedNumber component="text" value={this.state.dollarValue} style={{
@@ -227,13 +201,11 @@ roundUsdt(value){
                
                </div>
                <div>Website: <a href="https://twitter.com/Ukraine/status/1497594592438497282" target ="blank">https://twitter.com/Ukraine</a></div>
-               <h4>Ethereum Wallet: <a href="https://etherscan.io/address/0x165CD37b4C644C2921454429E7F9358d18A45e14" target ="blank">0x165CD37b4C644C2921454429E7F9358d18A45e14</a></h4>
-               {eth}
-               {usdt}
+               <h4>Bitcoin Wallet: <a href="https://www.blockchain.com/btc/address/357a3So9CbsNfBBgFYACGvxxS6tMaDoa1P" target ="blank">357a3So9CbsNfBBgFYACGvxxS6tMaDoa1P</a></h4>
+               {btc}
                {dollar}
-               <a href="https://etherscan.io/txs?a=0x165CD37b4C644C2921454429E7F9358d18A45e14&f=2" target ="blank"> Moved:  {numeral(this.state.spentEth).format('0,0.00')} ETH</a>
-              <div> <a href="https://etherscan.io/txs?a=0x165CD37b4C644C2921454429E7F9358d18A45e14&f=2" target ="blank"> ${numeral(this.state.spentUSDT).format('0,0.')} USDT</a></div>
-              <div> <a href="https://etherscan.io/txs?a=0x165CD37b4C644C2921454429E7F9358d18A45e14&f=2" target ="blank">Total Donated Value: ${numeral(this.state.totalDonation).format('0,0.')} USDT</a></div>
+               <a href="https://www.blockchain.com/btc/address/357a3So9CbsNfBBgFYACGvxxS6tMaDoa1P" target ="blank"> Moved:  {numeral(this.state.spentBTC).format('0,0.0000')} BTC</a>
+              <div> <a href="https://www.blockchain.com/btc/address/357a3So9CbsNfBBgFYACGvxxS6tMaDoa1P"target ="blank">Total Donated Value: ${numeral(this.state.totalDonation).format('0,0.')}</a></div>
 
                <div className="foot">
                 <h4>The government of Ukraine is now accepting cryptocurrency donations. Bitcoin, Ethereum & USDT.</h4>
@@ -246,14 +218,13 @@ roundUsdt(value){
 
     componentDidMount() {
         this._isMounted = true; 
-        this.loadBalance();
         this.getDollarValue();
-      //  this.getLogo();
-       
-             
+        this.loadBalance();      
+       // this.getLogo();
+                  
       }
     
 }
 
 
-export default UkraineGOV;
+export default UkraineGOV_BTC;

@@ -54,6 +54,8 @@ color:rgb(82, 126, 245);
   background:rgb(0, 5, 14);
   font-family: 'Cinzel Decorative', cursive;
   font-weight:600px;
+  cholor:rgb(240, 243, 237);
+  cohlor:rgb(117, 202, 47);
   
 }
 
@@ -513,21 +515,21 @@ color: #f5f3ed;
 border-top: 3px solid rgb(245, 188, 64);
 border-bottom: 3px solid rgb(245, 188, 64);
 padding-top: 15px;
-border-radius: 10px;
+border-radius: 15px;
 font-size: 20px;
 text-align: left;
 margin-top: 15px;
 margin-bottom: 15px;
 overflow: hidden;
-height: 510px!important;
-max-height: 510px!important;
-
+height: 550px!important;
+max-height: 550px!important;
 font-family: "Segoe UI",Tahoma,Geneva,Verdana,sans-serif;
 font-weight: bold;
 font-size:1.2rem;
 position: relative;
 text-align: center;
 }
+
 
 .daoLogo{
     height:60px;

@@ -3,6 +3,7 @@ import './App.css';
 import Navbar from './Components/Navbar';
 import UkraineDAO from './Components/UkraineDAO';
 import UkraineGOV from './Components/UkraineGOV';
+import UkraineGOV_BTC from './Components/UkraineGOV_BTC';
 
 
 
@@ -44,7 +45,11 @@ class App extends Component {
         </div>
         
         <div className="column">
+        <UkraineGOV_BTC/></div>   
+        
+        <div className="column">
         <UkraineDAO/></div>   
+
 
         <div>
          </div>
