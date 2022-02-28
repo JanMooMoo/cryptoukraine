@@ -50,6 +50,8 @@ const response = await near.connection.provider.query({
   });
  this.setState({nearBalance:response.amount/1000000000000000000000000},()=>console.log())
  this.setState({dollarValue:this.state.dollarPerNear * this.state.nearBalance},()=>console.log())
+ setInterval(()=>this.loadBalance(),15000)
+
     }
 
 
@@ -59,10 +61,11 @@ fetch('https://api.coingecko.com/api/v3/simple/price?ids=near&vs_currencies=usd'
         .then(res => res.json())
             .then((data) => {          
                 this.setState({dollarPerNear: data.near.usd},()=>console.log())
+                this.loadBalance()
+
             }               
               )
               .catch(console.log)
-              setInterval(()=>this.loadBalance(),15000)
 }  
 
 
@@ -167,7 +170,7 @@ round(value){
 
     componentDidMount() {
         this._isMounted = true; 
-        this.loadBalance();
+       // this.loadBalance();
         this.getDollarValue();
        // this.getInternal();
        

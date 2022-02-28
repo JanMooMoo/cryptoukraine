@@ -46,8 +46,7 @@ async loadBalance(){
     fetch('https://api.blockcypher.com/v1/btc/main/addrs/357a3So9CbsNfBBgFYACGvxxS6tMaDoa1P/balance')
     .then(res => res.json())
     .then((data) => {
- 
-      this.setState({btcBalance:data.balance/100000000, spentBTC:data.total_sent/100000000,totalBTC:data.total_received/100000000},()=>console.log()) 
+      this.setState({btcBalance:data.final_balance/100000000, spentBTC:data.total_sent/100000000,totalBTC:data.total_received/100000000},()=>console.log()) 
       this.setState({dollarValue:this.state.dollarPerbtc * this.state.btcBalance},()=>console.log())
       this.setState({totalDonation:this.state.dollarPerbtc * this.state.totalBTC},()=>console.log()) 
     }

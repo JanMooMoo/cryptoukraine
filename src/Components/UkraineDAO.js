@@ -34,7 +34,8 @@ async loadBalance(){
 
     const balance = await web3.eth.getBalance("0x4508401BaDe71aE75fE70c97fe585D734f975502");
     this.setState({ethBalance:web3.utils.fromWei(balance),wethBalance:1102.5},()=>console.log())
-    this.setState({dollarValue:this.state.dollarPerEth * (this.state.wethBalance + parseInt(this.state.ethBalance),()=>console.log())})
+    this.setState({dollarValue:this.state.dollarPerEth * (this.state.wethBalance + parseInt(this.state.ethBalance))},()=>console.log())
+    setInterval(()=>this.loadBalance(),14000)
 
     }
 
@@ -45,10 +46,11 @@ fetch('https://api.coingecko.com/api/v3/simple/price?ids=ethereum&vs_currencies=
         .then(res => res.json())
             .then((data) => {          
                 this.setState({dollarPerEth: data.ethereum.usd},()=>console.log())
+                this.loadBalance()
+
             }               
               )
               .catch(console.log)
-              setInterval(()=>this.loadBalance(),15000)
 }  
 
 
@@ -204,7 +206,6 @@ round(value){
 
     componentDidMount() {
         this._isMounted = true; 
-        this.loadBalance();
         this.getDollarValue();
        // this.getInternal();
        
