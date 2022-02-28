@@ -29,9 +29,8 @@ class UkraineDAO extends Component {
 async loadBalance(){
     this.setState({prevEth:this.state.ethBalance,prevState:this.state.dollarValue},()=>console.log)
 
-    const web3 = new Web3(new Web3.providers.HttpProvider("https://mainnet.infura.io/v3/72e114745bbf4822b987489c119f858b"))
-   
-
+    const web3 = new Web3(new Web3.providers.HttpProvider("https://mainnet.infura.io/v3/fdcf7b76a5e04f598a89724994743046"))
+    
     const balance = await web3.eth.getBalance("0x4508401BaDe71aE75fE70c97fe585D734f975502");
     this.setState({ethBalance:web3.utils.fromWei(balance),wethBalance:1102.5},()=>console.log())
     this.setState({dollarValue:this.state.dollarPerEth * (this.state.wethBalance + parseInt(this.state.ethBalance))},()=>console.log())

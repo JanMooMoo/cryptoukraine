@@ -7,7 +7,8 @@ import {usdt_address, usdt_abi} from '../USDT';
 
 
 let Web3 = require('web3');
-const web3 = new Web3(new Web3.providers.HttpProvider("https://mainnet.infura.io/v3/72e114745bbf4822b987489c119f858b"))
+//const web3 = new Web3(new Web3.providers.HttpProvider("https://mainnet.infura.io/v3/80d02cdecda5428590656c7e420c7cba"))
+const web3 = new Web3(new Web3.providers.HttpProvider("https://mainnet.infura.io/v3/fdcf7b76a5e04f598a89724994743046"))
 
 let numeral = require('numeral');
 
