@@ -49,7 +49,8 @@ async loadBalance(){
  
       this.setState({btcBalance:data.balance/100000000, spentBTC:data.total_sent/100000000,totalBTC:data.total_received/100000000},()=>console.log()) 
       this.setState({dollarValue:this.state.dollarPerbtc * this.state.btcBalance},()=>console.log())
-      this.setState({totalDonation:this.state.dollarPerbtc * this.state.totalBTC},()=>console.log())   }
+      this.setState({totalDonation:this.state.dollarPerbtc * this.state.totalBTC},()=>console.log()) 
+    }
     
       )
     .catch(console.log)

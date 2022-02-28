@@ -48,8 +48,8 @@ const response = await near.connection.provider.query({
     finality: "final",
     account_id: "unchain-fund.sputnik-dao.near",
   });
- this.setState({nearBalance:response.amount/1000000000000000000000000})
- this.setState({dollarValue:this.state.dollarPerNear * this.state.nearBalance})
+ this.setState({nearBalance:response.amount/1000000000000000000000000},()=>console.log())
+ this.setState({dollarValue:this.state.dollarPerNear * this.state.nearBalance},()=>console.log())
     }
 
 
