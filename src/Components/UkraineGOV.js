@@ -1,3 +1,4 @@
+import { transactions } from 'near-api-js';
 import React, { Component } from 'react';
 import AnimatedNumber from 'react-animated-number';
 import ukraineGovLogo from '../UkraineGov.jpg';
@@ -35,17 +36,28 @@ class UkraineGOV extends Component {
           prevState:0,
           prevEth:0,
           prevUSDT:0,
+
+          scan:'ZPRBBU2E6Z4QMEXPI7BWMCMVK7I6XZ6ZXE',
+          address:'0x165CD37b4C644C2921454429E7F9358d18A45e14',
+          arrays:[],
+          sting:[],
+          transactions:0,
+          dollarEth:0,
+ 
           
         }
     }
     
 
 async loadBalance(){
+
+    let x = []
+    
     this.setState({prevEth:this.state.ethBalance,prevUSDT:this.state.tether,prevState:this.state.dollarValue},()=>console.log)
 
     const balance = await web3.eth.getBalance("0x165CD37b4C644C2921454429E7F9358d18A45e14");
     const usdt = new web3.eth.Contract(usdt_abi, usdt_address);
-    this.setState({ethBalance:web3.utils.fromWei(balance),spentEth:2129.9491},()=>console.log())
+    this.setState({ethBalance:web3.utils.fromWei(balance)},()=>console.log())
 
     this.setState({usdtContract:usdt});
 
@@ -58,23 +70,55 @@ async loadBalance(){
     
     if(this.state.spentUSDT === 0){
     this.state.usdtContract.getPastEvents("Transfer",{filter: {from:'0x165cd37b4c644c2921454429e7f9358d18a45e14'},fromBlock: 0, toBlock:'latest'})
-  .then(events=>{
-  var transactions = events;
-  let spent = 0
-  for (var i = 0; i <= transactions.length - 1; i++){
+    .then(events=>{
+    var transactions = events;
+    let spent = 0
+    for (var i = 0; i <= transactions.length - 1; i++){
       //spent + (transactions[].returnValues.value/1000000)
       this.setState({spentUSDT:parseInt((this.state.spentUSDT + (transactions[i].returnValues.value/1000000)))},()=>console.log())
   
   }
+
+  
+
+    fetch('https://api.etherscan.io/api?module=account&action=txlist&address='+this.state.address+'&startblock=14292326&endblock=99999999&page=1&offset=10000&sort=asc&apikey='+this.state.scan)
+    .then(res => res.json())
+    .then((data) => {
+     
+        this.setState({sting:data.result},()=>console.log())
+        //0x7ec156c645945e512a45276e124b6f5f014b21a0
+      
+        x = this.state.sting.filter((address,i)=>{
+                   
+             return address.to === '0x77ab999d1e9f152156b4411e1f3e2a42dab8cd6d';
+         
+         })
+
+         for (var m = 0;m <= x.length -1; m++){
+            this.setState({transactions:this.state.transactions + parseInt(x[m].value)},()=>console.log())
+         }
+
+         this.setState({spentEth:this.state.transactions/1000000000000000000},()=>console.log())
+       
+         this.setState({dollarValue:this.state.dollarPerEth * this.state.ethBalance + this.state.tether},()=>console.log())
+         this.setState({totalDonation:this.state.dollarPerEth * this.state.spentEth + this.state.spentUSDT + this.state.dollarValue},()=>console.log()) 
+        
+        }
+
+    
+    )
+    .catch(console.log)
  // this.setState({spentUSDT:events},()=>console.log('eve',this.state.spentUSDT))
-  this.setState({dollarValue:this.state.dollarPerEth * this.state.ethBalance + this.state.tether},()=>console.log())
-  this.setState({totalDonation:this.state.dollarPerEth * this.state.spentEth + this.state.spentUSDT + this.state.dollarValue},()=>console.log())
  
+
   }).catch((err)=>console.error(err))
 }
-//this.setState({dollarValue:this.state.dollarPerEth * this.state.ethBalance + this.state.tether},()=>console.log())
 
-    }
+if(this.state.spentEth !== 0){
+this.setState({dollarValue:this.state.dollarPerEth * this.state.ethBalance + this.state.tether},()=>console.log())
+this.setState({totalDonation:this.state.dollarPerEth * this.state.spentEth + this.state.spentUSDT + this.state.dollarValue},()=>console.log())  //this.setState({transactions})
+} 
+}
 
 
 getDollarValue(){
@@ -188,7 +232,7 @@ roundUsdt(value){
         formatValue={n=>this.round(n)}></AnimatedNumber> ETH</p>;
 
         
-        let usdt = <p>USDT: $<AnimatedNumber component="text" value={this.state.dollarValue} style={{
+        let usdt = <p>USDT Balance: $<AnimatedNumber component="text" value={this.state.dollarValue} style={{
             transition: '0.1s ease-out',
             fontSize: 19,
             cursor:'pointer',
@@ -214,7 +258,11 @@ roundUsdt(value){
         duration={1500}
         formatValue={n=>this.roundDollar(n)}></AnimatedNumber> </p>;
     
-      
+      let total = <div>
+            <a href="https://etherscan.io/txs?a=0x165CD37b4C644C2921454429E7F9358d18A45e14&f=2" target ="blank"> Moved:  {numeral(this.state.spentEth).format('0,0.00')} ETH</a>
+              <div> <a href="https://etherscan.io/txs?a=0x165CD37b4C644C2921454429E7F9358d18A45e14&f=2" target ="blank"> ${numeral(this.state.spentUSDT).format('0,0.')} USDT</a></div>
+              <div> <a href="https://etherscan.io/txs?a=0x165CD37b4C644C2921454429E7F9358d18A45e14&f=2" target ="blank">Total Donated Value: ${numeral(this.state.totalDonation).format('0,0.')} USDT</a></div>
+      </div>
       
       
         return (
@@ -230,9 +278,7 @@ roundUsdt(value){
                {eth}
                {usdt}
                {dollar}
-               <a href="https://etherscan.io/txs?a=0x165CD37b4C644C2921454429E7F9358d18A45e14&f=2" target ="blank"> Moved:  {numeral(this.state.spentEth).format('0,0.00')} ETH</a>
-              <div> <a href="https://etherscan.io/txs?a=0x165CD37b4C644C2921454429E7F9358d18A45e14&f=2" target ="blank"> ${numeral(this.state.spentUSDT).format('0,0.')} USDT</a></div>
-              <div> <a href="https://etherscan.io/txs?a=0x165CD37b4C644C2921454429E7F9358d18A45e14&f=2" target ="blank">Total Donated Value: ${numeral(this.state.totalDonation).format('0,0.')} USDT</a></div>
+                {total}
 
                <div className="foot">
                 <h4>The government of Ukraine is now accepting cryptocurrency donations. Bitcoin, Ethereum & USDT.</h4>

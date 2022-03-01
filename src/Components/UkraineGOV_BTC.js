@@ -54,7 +54,11 @@ async loadBalance(){
     
       )
     .catch(console.log)
+    if(this.state.totalDonation!== 0){
+    this.setState({dollarValue:this.state.dollarPerbtc * this.state.btcBalance})
+    this.setState({totalDonation:parseInt(this.state.dollarPerbtc) * parseInt(this.state.totalBTC)},()=>console.log()) 
     }
+}
 
 
 getDollarValue(){
