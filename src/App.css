@@ -623,10 +623,18 @@ color:rgb(240, 243, 237);
 }
 
 
-@media(max-width:500px){
+@media(max-width:550px){
   .cardText{
-    font-size: 12px;
-    margin-top:15px;
+    font-size: 17px;
+    margin-top:11px;
+  }
+}
+
+
+@media(max-width:550px){
+  .banner{
+    width: 96%;
+    margin-left:2%;
   }
 }
 
