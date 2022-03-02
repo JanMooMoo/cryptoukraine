@@ -29,7 +29,9 @@ class UkraineGOV extends Component {
 
           txUSDT:[],
           spentUSDT:0,
-          spentEth:1995.00 + 134.94 + 42.99 + 42.99 + 42.99 + 42.99 + 42.99 + 68.01 + 677.03,
+          spentEth:0,
+          totalEth:0,
+
           totalDonation:0,
 
 
@@ -50,10 +52,27 @@ class UkraineGOV extends Component {
     
 
 async loadBalance(){
-
-    let x = []
-    
     this.setState({prevEth:this.state.ethBalance,prevUSDT:this.state.tether,prevState:this.state.dollarValue},()=>console.log)
+    
+  fetch('https://api.blockcypher.com/v1/eth/main/addrs/0x165CD37b4C644C2921454429E7F9358d18A45e14/balance')
+  .then(res => res.json())
+  .then((data) => {
+    // console.log(data)
+
+    this.setState({ethBalance:data.balance/1000000000000000000, spentEth:data.total_sent/1000000000000000000,totalEth:data.total_received/1000000000000000000}) 
+    //this.setState({dollarValue:this.state.dollarPerbtc * this.state.btcBalance})
+   // this.setState({totalDonation:parseInt(this.state.dollarPerbtc) * parseInt(this.state.totalBTC)},()=>console.log()) 
+     // this.handleBtc();
+  }
+  
+    )
+  .catch(console.log)
+//https://api.blockcypher.com/v1/eth/main/addrs/0x165CD37b4C644C2921454429E7F9358d18A45e14/balance
+
+   // let x = []
+    
+
+   
 
 
     /*fetch('https://api.etherscan.io/api?module=account&action=txlist&address='+this.state.address+'&startblock=6&endblock=99999999&page=1&offset=10000&sort=asc&apikey='+this.state.scan)
@@ -84,11 +103,9 @@ async loadBalance(){
     )
     .catch(console.log)*/
 
-
-
     const balance = await web3.eth.getBalance("0x165CD37b4C644C2921454429E7F9358d18A45e14");
     const usdt = new web3.eth.Contract(usdt_abi, usdt_address);
-    this.setState({ethBalance:web3.utils.fromWei(balance)},()=>console.log())
+   // this.setState({ethBalance:web3.utils.fromWei(balance)},()=>console.log())
 
     this.setState({usdtContract:usdt});
 
@@ -110,19 +127,22 @@ async loadBalance(){
   
   }
 
-  this.setState({dollarValue:this.state.dollarPerEth * this.state.ethBalance + this.state.tether},()=>console.log())
-this.setState({totalDonation:this.state.dollarPerEth * this.state.spentEth + this.state.spentUSDT + this.state.dollarValue},()=>console.log())  //this.setState({transactions})
-this.handleEth();
 
- // this.setState({spentUSDT:events},()=>console.log('eve',this.state.spentUSDT))
- 
+
+  this.setState({dollarValue:this.state.dollarPerEth * this.state.ethBalance + this.state.tether},()=>console.log())
+  this.setState({totalDonation:this.state.dollarPerEth * this.state.totalEth + this.state.tether + this.state.spentUSDT},()=>console.log()) 
+  this.handleEth();
 
   }).catch((err)=>console.error(err))
 }
 
-//if(this.state.spentEth < 0){
 
-//} 
+
+//if(this.state.totalDonation < 0){
+   this.setState({dollarValue:this.state.dollarPerEth * this.state.ethBalance + this.state.tether})
+   this.setState({totalDonation:this.state.dollarPerEth * this.state.totalEth + this.state.tether + this.state.spentUSDT},()=>console.log()) 
+   this.handleEth();
+   //}   this.handleEth();
 }
 
 
