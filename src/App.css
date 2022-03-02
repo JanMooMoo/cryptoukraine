@@ -574,4 +574,61 @@ color:rgb(240, 243, 237);
 }
 
 
+.banner{
+
+  width: 50%;
+  height: 50px;
+  background-position: 50%;
+  background-size: cover;
+  list-style-type: none;
+  border-radius: 15px;
+  box-shadow: 0 0 18px rgb(white/ 60%);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  transition: all .2s;
+  overflow: hidden;
+  color:white;
+  border-top: 1px solid rgb(0, 9, 73);
+  border-bottom: 5px solid rgb(219, 182, 78);
+  border:1px solid rgb(158, 158, 158);
+  cursor:pointer;
+  margin-left:25%;
+  background: rgb(0, 5, 14);
+}
+
+
+
+.cardText{
+  right: 0;
+  bottom: 0;
+  left: 0;
+  color: rgb(255, 255, 255);
+  width: 100%;
+  z-index: 10;
+  text-align: center;
+  border-radius: 5px;
+  font-size: 20px;
+  coldor:rgb(0, 0, 0);
+  display: block;
+  font-size: 1.17rem;
+  margin-block-start: 0em;
+  margin-block-end: 0px;
+  margin-inline-start: 0px;
+  margin-inline-end: 0px;
+  font-weight: bold;
+  margin-top:10px;
+  color:rgb(245, 188, 64);
+
+}
+
+
+@media(max-width:500px){
+  .cardText{
+    font-size: 12px;
+    margin-top:15px;
+  }
+}
+
+
 

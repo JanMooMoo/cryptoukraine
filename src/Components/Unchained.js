@@ -51,7 +51,7 @@ const response = await near.connection.provider.query({
  this.setState({nearBalance:response.amount/1000000000000000000000000},()=>console.log())
  this.setState({dollarValue:this.state.dollarPerNear * this.state.nearBalance},()=>console.log())
  setInterval(()=>this.loadBalance(),15000)
-
+ this.handleUnchain()
     }
 
 
@@ -70,6 +70,11 @@ fetch('https://api.coingecko.com/api/v3/simple/price?ids=near&vs_currencies=usd'
 
 
 
+handleUnchain = e => {
+    // if (this.props.onChange) {
+     this.props.onChange(this.state);
+           
+   };
 
 
 round(value){

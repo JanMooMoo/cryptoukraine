@@ -11,6 +11,7 @@ class UkraineDAO extends Component {
 
     constructor(props) {
         super(props);
+        
         this.state = {
 
           ethBalance:0,
@@ -22,7 +23,10 @@ class UkraineDAO extends Component {
           prevState:0,
           prevEth:0,
           prevUSDT:0,
+
+          
         }
+        
     }
     
 
@@ -32,10 +36,10 @@ async loadBalance(){
     const web3 = new Web3(new Web3.providers.HttpProvider("https://mainnet.infura.io/v3/fdcf7b76a5e04f598a89724994743046"))
     
     const balance = await web3.eth.getBalance("0x4508401BaDe71aE75fE70c97fe585D734f975502");
-    this.setState({ethBalance:web3.utils.fromWei(balance),wethBalance:1102.5},()=>console.log())
+    this.setState({ethBalance:web3.utils.fromWei(balance),wethBalance:2258.10931569},()=>console.log())
     this.setState({dollarValue:this.state.dollarPerEth * (this.state.wethBalance + parseInt(this.state.ethBalance))},()=>console.log())
     setInterval(()=>this.loadBalance(),21000)
-
+    this.handleDAO()
     }
 
 
@@ -75,6 +79,7 @@ async getInternal(){
   }'
 }*?
 
+
 https://api.etherscan.io/api
    ?module=account
    &action=txlistinternal
@@ -105,6 +110,15 @@ https://api.etherscan.io/api
    
      }
 
+   
+
+
+handleDAO = e => {
+       // if (this.props.onChange) {
+        this.props.onChange(this.state);
+              
+      };
+
 
 
 round(value){
@@ -126,6 +140,10 @@ round(value){
 
     
     render() {
+        
+
+        //let dollarChange = () => this.handleDAO(this.state.dollarValue)
+        //();
 
         let fontColor = 'rgb(154, 236, 87)';
         if(this.state.prevEth < this.state.ethBalance && this.state.prevEth !== 0){
@@ -180,6 +198,9 @@ round(value){
     
       
       
+        let total = <div>
+            <a href="https://etherscan.io/tx/0x05c870ed4b2b9dd287c8ac497b6c5ff1db11521df2bc454eb4bd3aa943c247e2" target ="blank"> Moved:  {numeral(this.state.wethBalance).format('0,0.00')} ETH</a>
+         </div>
       
         return (
             <div className='cards'>
@@ -192,7 +213,9 @@ round(value){
                <div>Website: <a href="https://www.ukrainedao.love/" target ="blank">https://www.ukrainedao.love/</a></div>
                <h4>Ethereum Wallet: <a href="https://etherscan.io/address/0x4508401bade71ae75fe70c97fe585d734f975502" target ="blank">0x4508401BaDe71aE75fE70c97fe585D734f975502</a></h4>
                {eth}
-               <p> Wrapped Ether Balance: {this.state.wethBalance} WETH <a href="https://etherscan.io/tx/0x398f462ecf1782d7f3970781cddb49542a66b40bce06a72d0bd04a10a31fed8f" target ="blank">Reserved On Bid</a></p>
+               
+               <p> Wrapped Ether Balance: {this.state.ethBalance} WETH <a href="https://etherscan.io/tx/0x05c870ed4b2b9dd287c8ac497b6c5ff1db11521df2bc454eb4bd3aa943c247e2" target ="blank">Reserved On Bid</a></p>
+               {total}
                {dollar}
 
                <div className="foot">

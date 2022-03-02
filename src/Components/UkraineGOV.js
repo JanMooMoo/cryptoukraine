@@ -87,7 +87,7 @@ async loadBalance(){
      
         this.setState({sting:data.result},()=>console.log())
         //0x7ec156c645945e512a45276e124b6f5f014b21a0
-      
+      console.log(data.result)
         x = this.state.sting.filter((address,i)=>{
                    
              return address.to === '0x77ab999d1e9f152156b4411e1f3e2a42dab8cd6d';
@@ -102,7 +102,7 @@ async loadBalance(){
        
          this.setState({dollarValue:this.state.dollarPerEth * this.state.ethBalance + this.state.tether},()=>console.log())
          this.setState({totalDonation:this.state.dollarPerEth * this.state.spentEth + this.state.spentUSDT + this.state.dollarValue},()=>console.log()) 
-        
+         this.handleEth();
         }
 
     
@@ -117,6 +117,7 @@ async loadBalance(){
 if(this.state.spentEth !== 0){
 this.setState({dollarValue:this.state.dollarPerEth * this.state.ethBalance + this.state.tether},()=>console.log())
 this.setState({totalDonation:this.state.dollarPerEth * this.state.spentEth + this.state.spentUSDT + this.state.dollarValue},()=>console.log())  //this.setState({transactions})
+this.handleEth();
 } 
 }
 
@@ -149,7 +150,12 @@ async getLogo(){
    
      }
 
-
+handleEth = e => {
+    // if (this.props.onChange) {
+        this.props.onChange(this.state);
+               
+    };
+    
 
 round(value){
     if (value){  

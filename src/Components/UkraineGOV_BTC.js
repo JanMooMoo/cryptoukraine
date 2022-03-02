@@ -50,6 +50,7 @@ async loadBalance(){
       this.setState({btcBalance:data.balance/100000000, spentBTC:data.total_sent/100000000,totalBTC:data.total_received/100000000}) 
       this.setState({dollarValue:this.state.dollarPerbtc * this.state.btcBalance})
       this.setState({totalDonation:parseInt(this.state.dollarPerbtc) * parseInt(this.state.totalBTC)},()=>console.log()) 
+        this.handleBtc();
     }
     
       )
@@ -57,6 +58,7 @@ async loadBalance(){
     if(this.state.totalDonation!== 0){
     this.setState({dollarValue:this.state.dollarPerbtc * this.state.btcBalance})
     this.setState({totalDonation:parseInt(this.state.dollarPerbtc) * parseInt(this.state.totalBTC)},()=>console.log()) 
+    this.handleBtc();
     }
 }
 
@@ -77,6 +79,13 @@ fetch('https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=u
 
 fetch(){
 }
+
+
+handleBtc = e => {
+    // if (this.props.onChange) {
+        this.props.onChange(this.state);
+               
+    };
 
 
 
