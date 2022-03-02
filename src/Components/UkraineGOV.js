@@ -29,7 +29,7 @@ class UkraineGOV extends Component {
 
           txUSDT:[],
           spentUSDT:0,
-          spentEth:0,
+          spentEth:1995.00 + 134.94 + 42.99 + 42.99 + 42.99 + 42.99 + 42.99 + 68.01 + 677.03,
           totalDonation:0,
 
 
@@ -55,33 +55,8 @@ async loadBalance(){
     
     this.setState({prevEth:this.state.ethBalance,prevUSDT:this.state.tether,prevState:this.state.dollarValue},()=>console.log)
 
-    const balance = await web3.eth.getBalance("0x165CD37b4C644C2921454429E7F9358d18A45e14");
-    const usdt = new web3.eth.Contract(usdt_abi, usdt_address);
-    this.setState({ethBalance:web3.utils.fromWei(balance)},()=>console.log())
 
-    this.setState({usdtContract:usdt});
-
-
-    const usdtBal = await this.state.usdtContract.methods.balanceOf("0x165CD37b4C644C2921454429E7F9358d18A45e14").call();
-    const usdtBalance = usdtBal;
- 
-    this.setState({tether:usdtBalance/1000000},()=>console.log())
-
-    
-    if(this.state.spentUSDT === 0){
-    this.state.usdtContract.getPastEvents("Transfer",{filter: {from:'0x165cd37b4c644c2921454429e7f9358d18a45e14'},fromBlock: 0, toBlock:'latest'})
-    .then(events=>{
-    var transactions = events;
-    let spent = 0
-    for (var i = 0; i <= transactions.length - 1; i++){
-      //spent + (transactions[].returnValues.value/1000000)
-      this.setState({spentUSDT:parseInt((this.state.spentUSDT + (transactions[i].returnValues.value/1000000)))},()=>console.log())
-  
-  }
-
-  
-
-    fetch('https://api.etherscan.io/api?module=account&action=txlist&address='+this.state.address+'&startblock=14292326&endblock=99999999&page=1&offset=10000&sort=asc&apikey='+this.state.scan)
+    /*fetch('https://api.etherscan.io/api?module=account&action=txlist&address='+this.state.address+'&startblock=6&endblock=99999999&page=1&offset=10000&sort=asc&apikey='+this.state.scan)
     .then(res => res.json())
     .then((data) => {
      
@@ -107,18 +82,47 @@ async loadBalance(){
 
     
     )
-    .catch(console.log)
+    .catch(console.log)*/
+
+
+
+    const balance = await web3.eth.getBalance("0x165CD37b4C644C2921454429E7F9358d18A45e14");
+    const usdt = new web3.eth.Contract(usdt_abi, usdt_address);
+    this.setState({ethBalance:web3.utils.fromWei(balance)},()=>console.log())
+
+    this.setState({usdtContract:usdt});
+
+
+    const usdtBal = await this.state.usdtContract.methods.balanceOf("0x165CD37b4C644C2921454429E7F9358d18A45e14").call();
+    const usdtBalance = usdtBal;
+ 
+    this.setState({tether:usdtBalance/1000000},()=>console.log())
+
+    
+    if(this.state.spentUSDT === 0){
+    this.state.usdtContract.getPastEvents("Transfer",{filter: {from:'0x165cd37b4c644c2921454429e7f9358d18a45e14'},fromBlock: 0, toBlock:'latest'})
+    .then(events=>{
+    var transactions = events;
+    let spent = 0
+    for (var i = 0; i <= transactions.length - 1; i++){
+      //spent + (transactions[].returnValues.value/1000000)
+      this.setState({spentUSDT:parseInt((this.state.spentUSDT + (transactions[i].returnValues.value/1000000)))},()=>console.log())
+  
+  }
+
+  this.setState({dollarValue:this.state.dollarPerEth * this.state.ethBalance + this.state.tether},()=>console.log())
+this.setState({totalDonation:this.state.dollarPerEth * this.state.spentEth + this.state.spentUSDT + this.state.dollarValue},()=>console.log())  //this.setState({transactions})
+this.handleEth();
+
  // this.setState({spentUSDT:events},()=>console.log('eve',this.state.spentUSDT))
  
 
   }).catch((err)=>console.error(err))
 }
 
-if(this.state.spentEth !== 0){
-this.setState({dollarValue:this.state.dollarPerEth * this.state.ethBalance + this.state.tether},()=>console.log())
-this.setState({totalDonation:this.state.dollarPerEth * this.state.spentEth + this.state.spentUSDT + this.state.dollarValue},()=>console.log())  //this.setState({transactions})
-this.handleEth();
-} 
+//if(this.state.spentEth < 0){
+
+//} 
 }
 
 
