@@ -42,7 +42,7 @@ class UkraineGOV_BTC extends Component {
 async loadBalance(){
     this.setState({prevBtc:this.state.btcBalance,prevUSDT:this.state.tether,prevState:this.state.dollarValue},()=>console.log)
 
-    fetch('https://api.blockcypher.com/v1/btc/main/addrs/357a3So9CbsNfBBgFYACGvxxS6tMaDoa1P/balance')
+    fetch('https://api.blockcypher.com/v1/btc/main/addrs/357a3So9CbsNfBBgFYACGvxxS6tMaDoa1P/balance?token=37487b0d2f00402caa6165ceac46d0f8')
     .then(res => res.json())
     .then((data) => {
             //console.log(data)
@@ -55,11 +55,11 @@ async loadBalance(){
     
       )
     .catch(console.log)
-    if(this.state.totalDonation!== 0){
+   // if(this.state.totalDonation!== 0){
     this.setState({dollarValue:this.state.dollarPerbtc * this.state.btcBalance})
     this.setState({totalDonation:parseInt(this.state.dollarPerbtc) * parseInt(this.state.totalBTC)},()=>console.log()) 
     this.handleBtc();
-    }
+   // }
 }
 
 

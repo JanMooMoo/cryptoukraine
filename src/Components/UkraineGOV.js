@@ -53,11 +53,11 @@ class UkraineGOV extends Component {
 
 async loadBalance(){
     this.setState({prevEth:this.state.ethBalance,prevUSDT:this.state.tether,prevState:this.state.dollarValue},()=>console.log)
-    
+    //https://api.blockcypher.com/v1/eth/main/addrs/0x165CD37b4C644C2921454429E7F9358d18A45e14/balance?token=bc6ad99ae7cc4b3ab4c28916c6644343 
   fetch('https://api.blockcypher.com/v1/eth/main/addrs/0x165CD37b4C644C2921454429E7F9358d18A45e14/balance')
   .then(res => res.json())
   .then((data) => {
-    // console.log(data)
+     console.log(data)
 
     this.setState({ethBalance:data.balance/1000000000000000000, spentEth:data.total_sent/1000000000000000000,totalEth:data.total_received/1000000000000000000}) 
     //this.setState({dollarValue:this.state.dollarPerbtc * this.state.btcBalance})
@@ -155,7 +155,7 @@ fetch('https://api.coingecko.com/api/v3/simple/price?ids=ethereum&vs_currencies=
             }               
               )
               .catch(console.log)
-              setInterval(()=>this.loadBalance(),15000)
+              setInterval(()=>this.loadBalance(),45000)
 }  
 
 
