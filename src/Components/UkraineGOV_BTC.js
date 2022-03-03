@@ -47,18 +47,23 @@ async loadBalance(){
     .then((data) => {
             //console.log(data)
 
-      this.setState({btcBalance:data.balance/100000000, spentBTC:data.total_sent/100000000,totalBTC:data.total_received/100000000}) 
-      this.setState({dollarValue:this.state.dollarPerbtc * this.state.btcBalance})
-      this.setState({totalDonation:parseInt(this.state.dollarPerbtc) * parseInt(this.state.totalBTC)},()=>console.log()) 
-        this.handleBtc();
+      this.setState({btcBalance:data.balance/100000000, spentBTC:data.total_sent/100000000,totalBTC:data.total_received/100000000},()=>console.log()) 
+      //this.setState({dollarValue:this.state.dollarPerbtc * this.state.btcBalance},()=>console.log())
+      //this.setState({totalDonation:parseInt(this.state.dollarPerbtc) * parseInt(this.state.totalBTC)},()=>console.log()) 
+     
+      setInterval(()=>this.total(),2000);
+      this.handleBtc();
+       
     }
     
       )
     .catch(console.log)
    // if(this.state.totalDonation!== 0){
-    this.setState({dollarValue:this.state.dollarPerbtc * this.state.btcBalance})
-    this.setState({totalDonation:parseInt(this.state.dollarPerbtc) * parseInt(this.state.totalBTC)},()=>console.log()) 
-    this.handleBtc();
+   // this.setState({dollarValue:this.state.dollarPerbtc * this.state.btcBalance},()=>console.log())
+    //this.setState({totalDonation:parseInt(this.state.dollarPerbtc) * parseInt(this.state.totalBTC)},()=>console.log()) 
+   // setInterval(()=>this.total(),5000);
+   
+  
    // }
 }
 
@@ -76,8 +81,11 @@ fetch('https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=u
               setInterval(()=>this.loadBalance(),60000)
 
 }  
-
-fetch(){
+total(){
+    this.setState({dollarValue:this.state.dollarPerbtc * this.state.btcBalance},()=>console.log())
+    this.setState({totalDonation:parseInt(this.state.dollarPerbtc) * parseInt(this.state.totalBTC)},()=>console.log()) 
+    this.handleBtc();
+   // console.log(this.state.totalDonation)
 }
 
 
