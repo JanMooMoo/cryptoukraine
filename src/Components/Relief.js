@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 import AnimatedNumber from 'react-animated-number';
-import ukraineDaoLogo from '../UkraineDao.jpg';
+import reliefLogo from '../Reli3f.png';
 
 
 let Web3 = require('web3');
 let numeral = require('numeral');
 
 
-class UkraineDAO extends Component {
+class Relief extends Component {
 
     constructor(props) {
         super(props);
@@ -35,11 +35,11 @@ async loadBalance(){
 
     const web3 = new Web3(new Web3.providers.HttpProvider("https://mainnet.infura.io/v3/fdcf7b76a5e04f598a89724994743046"))
     
-    const balance = await web3.eth.getBalance("0x4508401BaDe71aE75fE70c97fe585D734f975502");
-    this.setState({ethBalance:web3.utils.fromWei(balance),wethBalance:2258.10931569},()=>console.log())
+    const balance = await web3.eth.getBalance("0x087FC456471f5f88F7756c84F04159dF3A3621D9");
+    this.setState({ethBalance:web3.utils.fromWei(balance),wethBalance:185.01},()=>console.log())
     this.setState({dollarValue:this.state.dollarPerEth * (this.state.wethBalance + parseInt(this.state.ethBalance))},()=>console.log())
-    setInterval(()=>this.loadBalance(),21000)
-    this.handleDAO()
+    this.loadBalance()
+    this.handleRelief()
     }
 
 
@@ -113,7 +113,7 @@ https://api.etherscan.io/api
    
 
 
-handleDAO = e => {
+handleRelief = e => {
        // if (this.props.onChange) {
         this.props.onChange(this.state);
               
@@ -132,7 +132,7 @@ round(value){
 
     roundDollar(value){
         if (value){  
-            return numeral(this.state.dollarValue).format('0,0.');      
+            return numeral(this.state.dollarPerEth * this.state.ethBalance).format('0,0.');      
             }
             
         return 0;
@@ -184,7 +184,7 @@ round(value){
 
         
         
-        let dollar = <p>Total Donated Value: $<AnimatedNumber component="text" value={this.state.dollarValue} style={{
+        let dollar = <p>Current Donation Value: $<AnimatedNumber component="text" value={this.state.dollarValue} style={{
             transition: '0.1s ease-out',
             fontSize: 19,
             cursor:'pointer',
@@ -199,28 +199,30 @@ round(value){
       
       
         let total = <div>
-            <a href="https://etherscan.io/tx/0x05c870ed4b2b9dd287c8ac497b6c5ff1db11521df2bc454eb4bd3aa943c247e2" target ="blank"> Moved:  {numeral(this.state.wethBalance).format('0,0.00')} ETH</a>
+            <a href="https://etherscan.io/tx/0x71c5a611fb69494b4a9ed2bf68417868782afbac4a0e932ed1fbb2aa19f057af" target ="blank"> Moved:  {numeral(this.state.wethBalance /3).format('0,0.00')} ETH to Hospitallers</a>
+            <div><a href="https://etherscan.io/tx/0x67a9d355d801548e30e309dece26dffd1c635053e4944fc65bbd222bdfea7777" target ="blank">  {numeral(this.state.wethBalance /3).format('0,0.00')} ETH to Local Ukrainian Media</a></div>
+            <div><a href="https://etherscan.io/tx/0x6a89027bf9cd0d384733f21b6eaa8ef50e5beec8c881fa582ab0680077cbcdeb" target ="blank"> {numeral(this.state.wethBalance /3).format('0,0.00')} ETH to Come Back Alive</a></div>
+            <div> <a href="https://etherscan.io/txs?a=0x165CD37b4C644C2921454429E7F9358d18A45e14&f=2" target ="blank">Total Donated Value: ${numeral(this.state.dollarValue).format('0,0.')}</a></div>
          </div>
       
         return (
             <div className='cards'>
                 <div className='cards-inner'>
                 <div className="title">
-                <img className="daoLogo" src={ukraineDaoLogo} border={1} alt="UkraineDAO" ></img>
+                <img className="daoLogo" src={reliefLogo} border={1} alt="UkraineDAO" ></img>
 
-               <h3>Ukraine DAO</h3>
+               <h3>Reli3f Fund</h3>
                
                </div>
-               <div>Website: <a href="https://www.ukrainedao.love/" target ="blank">https://www.ukrainedao.love/</a></div>
-               <h4>Ethereum Wallet: <a href="https://etherscan.io/address/0x4508401bade71ae75fe70c97fe585d734f975502" target ="blank">0x4508401BaDe71aE75fE70c97fe585D734f975502</a></h4>
+               <div>Website: <a href="https://reli3f.xyz" target ="blank">https://reli3f.xyz</a></div>
+               <h4>Ethereum Wallet: <a href="https://etherscan.io/address/0x087FC456471f5f88F7756c84F04159dF3A3621D9" target ="blank">0x087FC456471f5f88F7756c84F04159dF3A3621D9</a></h4>
                {eth}
-               
-               <p> Wrapped Ether Balance: 0 WETH <a href="https://etherscan.io/tx/0x05c870ed4b2b9dd287c8ac497b6c5ff1db11521df2bc454eb4bd3aa943c247e2" target ="blank">Reserved On Bid</a></p>
-               {total}
                {dollar}
-               </div>
+               {total}
+              
+                </div>
                <div className="foot">
-                <h4> A DAO raising ETH to help Ukrainian civilians suffering from the war in Ukraine, organized by humanitarian activists such as PussyRiot & PleaserDAO</h4>
+                <h4> A humanitarian aid initiative founded by the Web3 community. Previously raised $1 Million in 30 seconds for Ukraine through NFTs.</h4>
                 </div>
             </div>
             
@@ -238,4 +240,4 @@ round(value){
 }
 
 
-export default UkraineDAO;
+export default Relief;

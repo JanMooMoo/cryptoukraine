@@ -153,6 +153,7 @@ round(value){
       
         return (
             <div className='cards'>
+                <div className='cards-inner'>
                 <div className="title">
                 <img className="daoLogo" src={unchainLogo} border={1} alt="Unchained" ></img>
 
@@ -164,7 +165,7 @@ round(value){
                {eth}
             
                {dollar}
-
+               </div>
                <div className="foot">
                 <h4>  Unchain is raising funds to support Ukrainian people via NGO's. The goal is to help Ukraine become the country it deserves to be: peaceful and free.</h4>
                 </div>
