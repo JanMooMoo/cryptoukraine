@@ -3,11 +3,11 @@ import AnimatedNumber from 'react-animated-number';
 import binanceLogo from '../binance.png';
 
 
-let Web3 = require('web3');
+//let Web3 = require('web3');
 let numeral = require('numeral');
 
 
-class Relief extends Component {
+class Binance extends Component {
 
     constructor(props) {
         super(props);
@@ -31,15 +31,14 @@ class Relief extends Component {
     
 
 async loadBalance(){
-    this.setState({prevEth:this.state.ethBalance,prevState:this.state.dollarValue},()=>console.log)
+    this.setState({prevEth:this.state.ethBalance,prevState:this.state.dollarValue},()=>console.log())
 
-    const web3 = new Web3(new Web3.providers.HttpProvider("https://mainnet.infura.io/v3/fdcf7b76a5e04f598a89724994743046"))
-    
-    const balance = await web3.eth.getBalance("0x1b4A932BFE0Bb8fF56029bc1d0502Cce639388EB");
-    this.setState({ethBalance:web3.utils.fromWei(balance),wethBalance:185.01},()=>console.log())
+    //const web3 = new Web3(new Web3.providers.HttpProvider("https://mainnet.infura.io/v3/fdcf7b76a5e04f598a89724994743046"))
+    //const balance = await web3.eth.getBalance("0x1b4A932BFE0Bb8fF56029bc1d0502Cce639388EB");
+    //this.setState({ethBalance:web3.utils.fromWei(balance),wethBalance:185.01},()=>console.log())
+
     this.setState({dollarValue:(this.state.dollarPerBinance * parseInt(this.state.isans_BNB)) + this.state.unicef_BUSD},()=>console.log())
-    this.loadBalance()
-    this.handleRelief()
+    this.handleBinance()
     }
 
 
@@ -113,7 +112,7 @@ https://api.etherscan.io/api
    
 
 
-handleRelief = e => {
+handleBinance = e => {
        // if (this.props.onChange) {
         this.props.onChange(this.state);
               
@@ -145,16 +144,7 @@ round(value){
         //let dollarChange = () => this.handleDAO(this.state.dollarValue)
         //();
 
-        let fontColor = 'rgb(154, 236, 87)';
-        if(this.state.prevEth < this.state.ethBalance && this.state.prevEth !== 0){
-            fontColor = 'rgb(117, 202, 47)';
-        }
-        else if(this.state.prevEth > this.state.ethBalance){
-            fontColor = 'rgba(230, 26, 60)';
-        }
-        else{
-            fontColor = 'rgb(240, 243, 237)';
-        }
+    
 
 
 
@@ -170,14 +160,14 @@ round(value){
         }
 
 
-        let eth =<p>Target Donation: $<AnimatedNumber component="text" value={this.state.ethBalance} style={{
+        let eth =<p>Target Donation: $<AnimatedNumber component="text" value={10000000} style={{
             transition: '0.1s ease-out',
             fontSize: 19,
             cursor:'pointer',
             transitionProperty:
             'background-color, color, opacity'
         }}frameStyle={perc => (
-            perc === 100 ? {} : {color: fontColor}
+            perc === 100 ? {} : {color: fontColor2}
         )}
         duration={1500}
         formatValue={n=>this.round(n)}></AnimatedNumber></p>;
@@ -227,4 +217,4 @@ round(value){
 }
 
 
-export default Relief;
+export default Binance;
