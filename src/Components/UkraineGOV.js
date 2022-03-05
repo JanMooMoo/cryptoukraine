@@ -34,7 +34,7 @@ class UkraineGOV extends Component {
 
           totalDonation:0,
 
-
+          prevTotal:0,
           prevState:0,
           prevEth:0,
           prevUSDT:0,
@@ -52,7 +52,7 @@ class UkraineGOV extends Component {
     
 
 async loadBalance(){
-    this.setState({prevEth:this.state.ethBalance,prevUSDT:this.state.tether,prevState:this.state.dollarValue},()=>console.log)
+    this.setState({prevEth:this.state.ethBalance,prevUSDT:this.state.tether,prevState:this.state.dollarValue, prevTotal:this.state.totalDonation},()=>console.log)
     //https://api.blockcypher.com/v1/eth/main/addrs/0x165CD37b4C644C2921454429E7F9358d18A45e14/balance?token=bc6ad99ae7cc4b3ab4c28916c6644343 
   fetch('https://api.blockcypher.com/v1/eth/main/addrs/0x165CD37b4C644C2921454429E7F9358d18A45e14/balance')
   .then(res => res.json())
@@ -132,7 +132,6 @@ async loadBalance(){
   //this.setState({dollarValue:this.state.dollarPerEth * this.state.ethBalance + this.state.tether},()=>console.log())
  // this.setState({totalDonation:this.state.dollarPerEth * this.state.totalEth + this.state.tether + this.state.spentUSDT},()=>console.log()) 
   setInterval(()=>this.total(),2000);
-  this.handleEth();
 
   }).catch((err)=>console.error(err))
 }
@@ -179,12 +178,14 @@ async getLogo(){
 total(){
     this.setState({dollarValue:this.state.dollarPerEth * this.state.ethBalance + this.state.tether},()=>console.log())
     this.setState({totalDonation:this.state.dollarPerEth * this.state.totalEth + this.state.tether + this.state.spentUSDT},()=>console.log()) 
+    if(this.state.prevTotal !== this.state.totalDonation){
     this.handleEth();
+    }
 }
 
 handleEth = e => {
     // if (this.props.onChange) {
-        this.props.onChange(this.state);
+        this.props.onChange(this.state.totalDonation);
                
     };
     
@@ -299,7 +300,7 @@ roundUsdt(value){
       let total = <div>
             <a href="https://etherscan.io/txs?a=0x165CD37b4C644C2921454429E7F9358d18A45e14&f=2" target ="blank"> Moved:  {numeral(this.state.spentEth).format('0,0.00')} ETH</a>
               <div> <a href="https://etherscan.io/txs?a=0x165CD37b4C644C2921454429E7F9358d18A45e14&f=2" target ="blank"> ${numeral(this.state.spentUSDT).format('0,0.')} USDT</a></div>
-              <div> <a href="https://etherscan.io/txs?a=0x165CD37b4C644C2921454429E7F9358d18A45e14&f=2" target ="blank">Total Donated Value: ${numeral(this.state.totalDonation).format('0,0.')} USDT</a></div>
+              <div> <a href="https://etherscan.io/txs?a=0x165CD37b4C644C2921454429E7F9358d18A45e14&f=2" target ="blank" className="total">Total Donated Value: ${numeral(this.state.totalDonation).format('0,0.')} USDT</a></div>
       </div>
       
       

@@ -38,7 +38,9 @@ async loadBalance(){
     //this.setState({ethBalance:web3.utils.fromWei(balance),wethBalance:185.01},()=>console.log())
 
     this.setState({dollarValue:(this.state.dollarPerBinance * parseInt(this.state.isans_BNB)) + this.state.unicef_BUSD},()=>console.log())
+    if(this.state.prevState !== this.state.dollarValue){
     this.handleBinance()
+    }
     }
 
 
@@ -177,7 +179,7 @@ round(value){
         let total = <div>
             <a href="https://etherscan.io/tx/0xf638a4c9ade8c7366b685a1ba22e19246e2b6bdc1f41966a658661174c727ba4" target ="blank"> Moved:  {numeral(this.state.unicef_BUSD).format('0,0.00')} BUSD to UNICEF</a>
             <div><a href="https://explorer.binance.org/tx/806B48180F3121DB899DB19B96CADD9D333CC3632D3EFF6CF44EB223EB3D3A78" target ="blank">  {numeral(this.state.isans_BNB).format('0,0.00')} BNB to ISANS</a></div>
-            <div><a href="https://explorer.binance.org/tx/806B48180F3121DB899DB19B96CADD9D333CC3632D3EFF6CF44EB223EB3D3A78" target ="blank">Total Donated Value: $ {numeral(this.state.dollarValue).format('0,0.00')}</a></div>
+            <div><a href="https://explorer.binance.org/tx/806B48180F3121DB899DB19B96CADD9D333CC3632D3EFF6CF44EB223EB3D3A78" target ="blank" className="total">Total Donated Value: $ {numeral(this.state.dollarValue).format('0,0.00')}</a></div>
          </div>
       
         return (

@@ -39,7 +39,9 @@ async loadBalance(){
     this.setState({ethBalance:web3.utils.fromWei(balance),wethBalance:2258.10931569},()=>console.log())
     this.setState({dollarValue:this.state.dollarPerEth * (this.state.wethBalance + parseInt(this.state.ethBalance))},()=>console.log())
     setInterval(()=>this.loadBalance(),21000)
+    if(this.state.prevState !== this.state.dollarValue){
     this.handleDAO()
+    }
     }
 
 
@@ -113,7 +115,7 @@ https://api.etherscan.io/api
    
 
 
-handleDAO = e => {
+handleDAO() {
        // if (this.props.onChange) {
         this.props.onChange(this.state);
               

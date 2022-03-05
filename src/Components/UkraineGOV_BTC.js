@@ -34,13 +34,14 @@ class UkraineGOV_BTC extends Component {
           prevState:0,
           prevBtc:0,
           prevUSDT:0,
+          prevTotal:0,
           
         }
     }
     
 
 async loadBalance(){
-    this.setState({prevBtc:this.state.btcBalance,prevUSDT:this.state.tether,prevState:this.state.dollarValue},()=>console.log)
+    this.setState({prevBtc:this.state.btcBalance,prevUSDT:this.state.tether,prevState:this.state.dollarValue,prevTotal:this.state.totalDonation},()=>console.log)
 
     fetch('https://api.blockcypher.com/v1/btc/main/addrs/357a3So9CbsNfBBgFYACGvxxS6tMaDoa1P/balance?token=37487b0d2f00402caa6165ceac46d0f8')
     .then(res => res.json())
@@ -52,7 +53,6 @@ async loadBalance(){
       //this.setState({totalDonation:parseInt(this.state.dollarPerbtc) * parseInt(this.state.totalBTC)},()=>console.log()) 
      
       setInterval(()=>this.total(),2000);
-      this.handleBtc();
        
     }
     
@@ -84,15 +84,15 @@ fetch('https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=u
 total(){
     this.setState({dollarValue:this.state.dollarPerbtc * this.state.btcBalance},()=>console.log())
     this.setState({totalDonation:parseInt(this.state.dollarPerbtc) * parseInt(this.state.totalBTC)},()=>console.log()) 
+    if(this.state.prevTotal !== this.state.totalDonation){
     this.handleBtc();
+    }
    // console.log(this.state.totalDonation)
 }
 
 
-handleBtc = e => {
-    // if (this.props.onChange) {
-        this.props.onChange(this.state);
-               
+handleBtc = e => {  
+        this.props.onChange(this.state.totalDonation);   
     };
 
 
@@ -207,7 +207,7 @@ roundUsdt(value){
 
 
         let links= <div><a href="https://www.blockchain.com/btc/address/357a3So9CbsNfBBgFYACGvxxS6tMaDoa1P" target ="blank"> Moved:  {numeral(this.state.spentBTC).format('0,0.0000')} BTC</a>
-              <div> <a href="https://www.blockchain.com/btc/address/357a3So9CbsNfBBgFYACGvxxS6tMaDoa1P"target ="blank">Total Donated Value: ${numeral(this.state.totalDonation).format('0,0.')}</a></div></div>;
+              <div> <a href="https://www.blockchain.com/btc/address/357a3So9CbsNfBBgFYACGvxxS6tMaDoa1P"target ="blank" className="total">Total Donated Value: ${numeral(this.state.totalDonation).format('0,0.')}</a></div></div>;
 
     
   

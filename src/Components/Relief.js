@@ -16,6 +16,8 @@ class Relief extends Component {
 
           ethBalance:0,
           wethBalance:0,
+          wethBalance_2:0,
+          wethBalance_3:0,
           bloackNumber:0,
           dollarPerEth:0,
           dollarValue:0,
@@ -36,10 +38,11 @@ async loadBalance(){
     const web3 = new Web3(new Web3.providers.HttpProvider("https://mainnet.infura.io/v3/fdcf7b76a5e04f598a89724994743046"))
     
     const balance = await web3.eth.getBalance("0x087FC456471f5f88F7756c84F04159dF3A3621D9");
-    this.setState({ethBalance:web3.utils.fromWei(balance),wethBalance:185.01},()=>console.log())
-    this.setState({dollarValue:this.state.dollarPerEth * (this.state.wethBalance + parseInt(this.state.ethBalance))},()=>console.log())
-    this.loadBalance()
+    this.setState({ethBalance:web3.utils.fromWei(balance),wethBalance:185.01,wethBalance_2:185,wethBalance_3:40},()=>console.log())
+    this.setState({dollarValue:this.state.dollarPerEth * (this.state.wethBalance + this.state.wethBalance_2 + this.state.wethBalance_3 + parseInt(this.state.ethBalance))},()=>console.log())
+    if(this.state.prevState !== this.state.dollarValue){
     this.handleRelief()
+    }
     }
 
 
@@ -113,7 +116,7 @@ https://api.etherscan.io/api
    
 
 
-handleRelief = e => {
+handleRelief()  {
        // if (this.props.onChange) {
         this.props.onChange(this.state);
               
@@ -202,7 +205,18 @@ round(value){
             <a href="https://etherscan.io/tx/0x71c5a611fb69494b4a9ed2bf68417868782afbac4a0e932ed1fbb2aa19f057af" target ="blank"> Moved:  {numeral(this.state.wethBalance /3).format('0,0.00')} ETH to Hospitallers</a>
             <div><a href="https://etherscan.io/tx/0x67a9d355d801548e30e309dece26dffd1c635053e4944fc65bbd222bdfea7777" target ="blank">  {numeral(this.state.wethBalance /3).format('0,0.00')} ETH to Local Ukrainian Media</a></div>
             <div><a href="https://etherscan.io/tx/0x6a89027bf9cd0d384733f21b6eaa8ef50e5beec8c881fa582ab0680077cbcdeb" target ="blank"> {numeral(this.state.wethBalance /3).format('0,0.00')} ETH to Come Back Alive</a></div>
-            <div> <a href="https://etherscan.io/txs?a=0x165CD37b4C644C2921454429E7F9358d18A45e14&f=2" target ="blank">Total Donated Value: ${numeral(this.state.dollarValue).format('0,0.')}</a></div>
+
+            <div><a href="https://etherscan.io/tx/0x564c0f304cb456e9e1f5689942627cc1d8fc58f460b1dea5fdcfa1de884e48eb" target ="blank"> {numeral(this.state.wethBalance_2 /4).format('0,0.00')} ETH to Razom</a></div>
+            <div><a href="https://etherscan.io/tx/0xce265d210ead99272db1c724c94b8a81e42038b35e47d26f2acde1c61c0bc16f" target ="blank"> {numeral(this.state.wethBalance_2 /4).format('0,0.00')} ETH to Serhiy Prytula Foundation</a></div>
+            <div><a href="https://etherscan.io/tx/0x450abbf61af5bb3bf62f78f17dd6e512b6d6fde4ad86a8031c686b9be8ac44e1" target ="blank"> {numeral(this.state.wethBalance_2 /4).format('0,0.00')} ETH to Valery Sozanovsky HQ</a></div>
+            <div><a href="https://etherscan.io/tx/0x9d006810f4b825e21bc330f1d2f1fa2631f638295e56d099df5c519e59c0858d" target ="blank"> {numeral(this.state.wethBalance_2 /4).format('0,0.00')} ETH to CEO Club</a></div>
+
+            <div><a href="https://etherscan.io/tx/0x7a83d0bbda21cc0ac40be4f26e6b05c95f970829734e16e654692d51015e3d75" target ="blank"> {numeral(this.state.wethBalance_3 /2).format('0,0.00')} ETH to Outright Action Intl</a></div>
+            <div><a href="https://etherscan.io/tx/0x7280c459e5badb3a4849061073730cd2db03275f195763fee3ad13afc5e7fab9" target ="blank"> {numeral(this.state.wethBalance_3 /2).format('0,0.00')} ETH to Web3 for Africans in Ukraine</a></div>
+
+            
+            <div> <a href="https://etherscan.io/txs?a=0x165CD37b4C644C2921454429E7F9358d18A45e14&f=2" target ="blank" className="total">Total Donated Value: ${numeral(this.state.dollarValue).format('0,0.')}</a></div>
+            
          </div>
       
         return (

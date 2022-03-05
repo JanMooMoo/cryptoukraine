@@ -51,7 +51,9 @@ const response = await near.connection.provider.query({
  this.setState({nearBalance:response.amount/1000000000000000000000000},()=>console.log())
  this.setState({dollarValue:this.state.dollarPerNear * this.state.nearBalance},()=>console.log())
  setInterval(()=>this.loadBalance(),15000)
+ if(this.state.prevState !== this.state.dollarValue){
  this.handleUnchain()
+ }
     }
 
 

@@ -45,25 +45,28 @@ class App extends Component {
       
 
    dollarEth =(data)=>{
-    this.setState({ethGov:data.totalDonation},()=>console.log());
-      
+    if(data !== this.state.ethGov){
+    this.setState({ethGov:data},()=>console.log());
+    } 
   } 
   
    dollarBtc =(data)=>{
-    this.setState({btcGov:data.totalDonation},()=>console.log());
-      
+    if(data !== this.state.btcGov){
+    this.setState({btcGov:data},()=>console.log());
+    }
   } 
+
 
 
    dollarDao =(data)=>{
     this.setState({Dao:data.dollarValue},()=>console.log());
-    
+     
    } 
 
    dollarUnchain =(data)=>{
     this.setState({Unchain:data.dollarValue},()=>console.log());
-    
-   } 
+   
+  } 
 
    dollarRelief =(data)=>{
     this.setState({relief:data.dollarValue});
@@ -106,13 +109,12 @@ class App extends Component {
         
          </div>
 
-
-         <div className="column">
-      <UkraineGOV onChange={this.dollarEth}/>
-      </div>
+        <div className="column">
+        <UkraineGOV onChange={this.dollarEth}/>
+        </div>
       
-      <div className="column">
-      <UkraineGOV_BTC onChange={this.dollarBtc}/></div>   
+        <div className="column">
+        <UkraineGOV_BTC onChange={this.dollarBtc}/></div>
          
         <div className="column">
         <UkraineDAO onChange={this.dollarDao}/>
@@ -154,11 +156,23 @@ componentDidMount() {
  // this.loadToken();
 }
 
-componentDidUpdate() {
-  if (x !== 0) {
-    console.log('shite')
+
+/*shouldComponentUpdate(nextState) {
+  console.log(nextState)
+  console.log(this.state)
+  if (this.state === this.state) {
+    return true;
+  } else {
+    return false;
   }
-}
+}*/
+
+/*componentDidUpdate(prevProps, prevState) {
+  console.log(prevState)
+  if (prevState.Dao !== this.state.Dao) {
+    console.log('pokemons state has changed.')
+  }
+}*/
 
 
 

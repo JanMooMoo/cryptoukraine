@@ -513,8 +513,8 @@ padding-top: 15px;
 font-size: 20px;
 text-align: left;
 overflow: hidden;
-height: 5500px;
-max-height: 5500px;
+height: 470px;
+max-height: 470px;
 font-family: "Segoe UI",Tahoma,Geneva,Verdana,sans-serif;
 font-weight: bold;
 font-size:1.2rem;
@@ -522,6 +522,7 @@ position: relative;
 text-align: center;
 color:rgb(240, 243, 237);
 padding-left:15px;
+overflow-y: scroll;
 }
 
 .cards{
@@ -663,11 +664,6 @@ padding-left:15px;
   }
 
 
-  .fofot{
-    z-index:-100000;
-  }
-
-
 }
 
 
@@ -676,6 +672,11 @@ padding-left:15px;
     width: 96%;
     margin-left:2%;
   }
+}
+
+.total{
+  color:rgb(249, 252, 255);
+  font-size: 15px;
 }
 
 
