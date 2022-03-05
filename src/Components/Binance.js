@@ -201,7 +201,7 @@ round(value){
               
                </div>
                <div className="foot">
-                <h4> A humanitarian aid initiative founded by the Web3 community. Previously raised $1 Million in 30 seconds for Ukraine through NFTs.</h4>
+                <h4> Binance Charity is donating a minimum of $10 million USD to major Intergovernmental Organizations and NGOs to help provide emergency relief to refugees and children.</h4>
                 </div>
             </div>
             

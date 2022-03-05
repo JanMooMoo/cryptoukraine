@@ -222,7 +222,7 @@ round(value){
                {dollar}
                </div>
                <div className="foot">
-                <h4> A DAO raising ETH to help Ukrainian civilians suffering from the war in Ukraine, organized by humanitarian activists such as PussyRiot & PleaserDAO</h4>
+                <h4> A DAO raising ETH to help Ukrainian civilians suffering from the war in Ukraine, organized by humanitarian activists such as PussyRiot & PleaserDAO.</h4>
                 </div>
             </div>
             
