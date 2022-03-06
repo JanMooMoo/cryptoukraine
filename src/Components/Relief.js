@@ -8,7 +8,7 @@ let numeral = require('numeral');
 
 
 class Relief extends Component {
-
+    _isMounted = false;
     constructor(props) {
         super(props);
         
@@ -33,6 +33,7 @@ class Relief extends Component {
     
 
 async loadBalance(){
+    if(this._isMounted){
     this.setState({prevEth:this.state.ethBalance,prevState:this.state.dollarValue},()=>console.log)
 
     const web3 = new Web3(new Web3.providers.HttpProvider("https://mainnet.infura.io/v3/fdcf7b76a5e04f598a89724994743046"))
@@ -43,6 +44,7 @@ async loadBalance(){
     if(this.state.prevState !== this.state.dollarValue){
     this.handleRelief()
     }
+}
     }
 
 
@@ -246,10 +248,12 @@ round(value){
     componentDidMount() {
         this._isMounted = true; 
         this.getDollarValue();
-       // this.getInternal();
-       
-             
+       // this.getInternal();      
       }
+
+      componentWillUnmount(){
+        this._isMounted = false;
+    }
     
 }
 

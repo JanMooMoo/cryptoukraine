@@ -15,7 +15,7 @@ let numeral = require('numeral');
 
 
 class UkraineGOV extends Component {
-
+    _isMounted = false;
     constructor(props) {
         super(props);
         this.state = {
@@ -52,6 +52,7 @@ class UkraineGOV extends Component {
     
 
 async loadBalance(){
+    if(this._isMounted){
     this.setState({prevEth:this.state.ethBalance,prevUSDT:this.state.tether,prevState:this.state.dollarValue, prevTotal:this.state.totalDonation},()=>console.log)
     //https://api.blockcypher.com/v1/eth/main/addrs/0x165CD37b4C644C2921454429E7F9358d18A45e14/balance?token=bc6ad99ae7cc4b3ab4c28916c6644343 
   fetch('https://api.blockcypher.com/v1/eth/main/addrs/0x165CD37b4C644C2921454429E7F9358d18A45e14/balance')
@@ -135,6 +136,7 @@ async loadBalance(){
 
   }).catch((err)=>console.error(err))
 }
+}
 
 
 
@@ -176,16 +178,18 @@ async getLogo(){
      }
 
 total(){
+    if(this._isMounted){
     this.setState({dollarValue:this.state.dollarPerEth * this.state.ethBalance + this.state.tether},()=>console.log())
     this.setState({totalDonation:this.state.dollarPerEth * this.state.totalEth + this.state.tether + this.state.spentUSDT},()=>console.log()) 
     if(this.state.prevTotal !== this.state.totalDonation){
     this.handleEth();
     }
 }
+}
 
 handleEth = e => {
     // if (this.props.onChange) {
-        this.props.onChange(this.state.totalDonation);
+        this.props.onChange(this.state);
                
     };
     
@@ -332,10 +336,13 @@ roundUsdt(value){
         this._isMounted = true; 
         this.loadBalance();
         this.getDollarValue();
-      //  this.getLogo();
-       
-             
+      //  this.getLogo();      
       }
+
+      componentWillUnmount(){
+        this._isMounted = false;
+    }
+    
     
 }
 

@@ -2,18 +2,12 @@ import React, { Component } from 'react';
 import AnimatedNumber from 'react-animated-number';
 import ukraineGovLogo from '../UkraineGov.jpg';
 
-import {usdt_address, usdt_abi} from '../USDT';
-
-
-
-let Web3 = require('web3');
-const web3 = new Web3(new Web3.providers.HttpProvider("https://mainnet.infura.io/v3/fdcf7b76a5e04f598a89724994743046"))
 
 let numeral = require('numeral');
 
 
 class UkraineGOV_BTC extends Component {
-
+    _isMounted = false;
     constructor(props) {
         super(props);
         this.state = {
@@ -41,6 +35,7 @@ class UkraineGOV_BTC extends Component {
     
 
 async loadBalance(){
+    if(this._isMounted){
     this.setState({prevBtc:this.state.btcBalance,prevUSDT:this.state.tether,prevState:this.state.dollarValue,prevTotal:this.state.totalDonation},()=>console.log)
 
     fetch('https://api.blockcypher.com/v1/btc/main/addrs/357a3So9CbsNfBBgFYACGvxxS6tMaDoa1P/balance?token=37487b0d2f00402caa6165ceac46d0f8')
@@ -52,7 +47,7 @@ async loadBalance(){
       //this.setState({dollarValue:this.state.dollarPerbtc * this.state.btcBalance},()=>console.log())
       //this.setState({totalDonation:parseInt(this.state.dollarPerbtc) * parseInt(this.state.totalBTC)},()=>console.log()) 
      
-      setInterval(()=>this.total(),2000);
+      const x = setInterval(()=>this.total(),2000);
        
     }
     
@@ -63,7 +58,7 @@ async loadBalance(){
     //this.setState({totalDonation:parseInt(this.state.dollarPerbtc) * parseInt(this.state.totalBTC)},()=>console.log()) 
    // setInterval(()=>this.total(),5000);
    
-  
+}
    // }
 }
 
@@ -82,17 +77,20 @@ fetch('https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=u
 
 }  
 total(){
+    if(this._isMounted){
     this.setState({dollarValue:this.state.dollarPerbtc * this.state.btcBalance},()=>console.log())
     this.setState({totalDonation:parseInt(this.state.dollarPerbtc) * parseInt(this.state.totalBTC)},()=>console.log()) 
     if(this.state.prevTotal !== this.state.totalDonation){
     this.handleBtc();
+    }
+   
     }
    // console.log(this.state.totalDonation)
 }
 
 
 handleBtc = e => {  
-        this.props.onChange(this.state.totalDonation);   
+        this.props.onChange(this.state);   
     };
 
 
@@ -243,6 +241,11 @@ roundUsdt(value){
        // this.getLogo();
                   
       }
+
+      componentWillUnmount(){
+        this._isMounted = false;
+    }
+    
     
 }
 

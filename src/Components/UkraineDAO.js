@@ -8,7 +8,7 @@ let numeral = require('numeral');
 
 
 class UkraineDAO extends Component {
-
+    _isMounted = false;
     constructor(props) {
         super(props);
         
@@ -31,6 +31,7 @@ class UkraineDAO extends Component {
     
 
 async loadBalance(){
+    if(this._isMounted){
     this.setState({prevEth:this.state.ethBalance,prevState:this.state.dollarValue},()=>console.log)
 
     const web3 = new Web3(new Web3.providers.HttpProvider("https://mainnet.infura.io/v3/fdcf7b76a5e04f598a89724994743046"))
@@ -39,9 +40,10 @@ async loadBalance(){
     this.setState({ethBalance:web3.utils.fromWei(balance),wethBalance:2258.10931569},()=>console.log())
     this.setState({dollarValue:this.state.dollarPerEth * (this.state.wethBalance + parseInt(this.state.ethBalance))},()=>console.log())
     setInterval(()=>this.loadBalance(),21000)
-    if(this.state.prevState !== this.state.dollarValue){
+    if(this.state.prevEth !== this.state.ethBalance){
     this.handleDAO()
     }
+}
     }
 
 
@@ -232,10 +234,12 @@ round(value){
     componentDidMount() {
         this._isMounted = true; 
         this.getDollarValue();
-       // this.getInternal();
-       
-             
+       // this.getInternal();      
       }
+
+      componentWillUnmount(){
+        this._isMounted = false;
+    }
     
 }
 

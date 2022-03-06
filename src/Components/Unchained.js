@@ -9,7 +9,7 @@ let numeral = require('numeral');
 
 
 class Unchained extends Component {
-
+    _isMounted = false;
     constructor(props) {
         super(props);
         this.state = {
@@ -28,7 +28,8 @@ class Unchained extends Component {
     
 
 async loadBalance(){
-    this.setState({prevNear:this.state.nearBalance,prevState:this.state.dollarValue},()=>console.log)
+    if(this._isMounted){
+    this.setState({prevNear:this.state.nearBalance,prevState:this.state.dollarValue},()=>console.log())
 
     const { keyStores } = nearAPI;
     const keyStore = new keyStores.BrowserLocalStorageKeyStore();
@@ -54,6 +55,7 @@ const response = await near.connection.provider.query({
  if(this.state.prevState !== this.state.dollarValue){
  this.handleUnchain()
  }
+}
     }
 
 
@@ -180,10 +182,12 @@ round(value){
         this._isMounted = true; 
        // this.loadBalance();
         this.getDollarValue();
-       // this.getInternal();
-       
-             
+       // this.getInternal();     
       }
+
+      componentWillUnmount(){
+        this._isMounted = false;
+    }
     
 }
 
