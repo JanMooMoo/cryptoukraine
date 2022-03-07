@@ -110,12 +110,16 @@ class App extends Component {
   
     render(){
       
-      /*<div className="column">
+      /*
+      <div className="column">
       <UkraineGOV onChange={this.dollarEth}/>
       </div>
       
       <div className="column">
-      <UkraineGOV_BTC onChange={this.dollarBtc}/></div>   */
+      <UkraineGOV_BTC onChange={this.dollarBtc}/>
+      </div>   
+      
+      */
      
      let body = '';
      let buttonText = '';
@@ -137,14 +141,14 @@ class App extends Component {
      else{
       body = <div>
 
-<     div className="column">
+      <div className="column">
       <UkraineGOV onChange={this.dollarEth}/>
       </div>
       
       <div className="column">
       <UkraineGOV_BTC onChange={this.dollarBtc}/>
-      </div>
-      
+      </div> 
+        
       <div className="column">
       <UkraineDAO onChange={this.dollarDao}/>
       </div>   

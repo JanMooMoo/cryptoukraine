@@ -35,9 +35,9 @@ async loadBalance(){
     this.setState({prevEth:this.state.ethBalance,prevState:this.state.dollarValue},()=>console.log)
 
     const web3 = new Web3(new Web3.providers.HttpProvider("https://mainnet.infura.io/v3/fdcf7b76a5e04f598a89724994743046"))
-    
-    const balance = await web3.eth.getBalance("0x4508401BaDe71aE75fE70c97fe585D734f975502");
-    this.setState({ethBalance:web3.utils.fromWei(balance),wethBalance:2258.10931569},()=>console.log())
+    //const balance = await web3.eth.getBalance("0x4508401BaDe71aE75fE70c97fe585D734f975502");
+    const balance = await web3.eth.getBalance("0x633b7218644b83D57d90e7299039ebAb19698e9C");
+    this.setState({ethBalance:web3.utils.fromWei(balance),wethBalance:2166},()=>console.log())
     this.setState({dollarValue:this.state.dollarPerEth * (this.state.wethBalance + parseInt(this.state.ethBalance))},()=>console.log())
     setInterval(()=>this.loadBalance(),21000)
     if(this.state.prevEth !== this.state.ethBalance){
@@ -203,7 +203,12 @@ round(value){
       
       
         let total = <div>
-            <a href="https://etherscan.io/tx/0x05c870ed4b2b9dd287c8ac497b6c5ff1db11521df2bc454eb4bd3aa943c247e2" target ="blank"> Moved:  {numeral(this.state.wethBalance).format('0,0.00')} ETH</a>
+            <a href="https://etherscan.io/tx/0xeb6d584b34927f75e30539dfbefb1b013e5c5863fdc3ec297682e9def5e64b3c" target ="blank"> Moved:  {numeral(1550.5).format('0,0.00')} ETH to Come Back Alive</a>
+            <div><a href="https://etherscan.io/tx/0x8134925e23be0ded6338dad943d25167de6cc1e5f15731bb03139d8561ea0eba#internal" target ="blank">  {numeral(387.63).format('0,0.00')} ETH to Ukraine Government</a></div>
+            <div><a href="https://etherscan.io/tx/0xc3b3bb07117c3e177a578c7878a1633e16e79bc954531da62fdacfe0856cd8ef#internal" target ="blank">  {numeral(190.49).format('0,0.00')} ETH to Outright</a></div>
+            <div><a href="https://etherscan.io/tx/0x3a60a57a5636fd24958e73d86b9d3b4b5423f5e7617f7ba1a907022554df18b4#internal" target ="blank">  {numeral(4.43).format('0,0.00')} ETH to Psychology for Human Rights</a></div>
+      
+            <div> <a href="https://etherscan.io/address/0x633b7218644b83D57d90e7299039ebAb19698e9C#internaltx" target ="blank" className="total">Total Donated Value: ${numeral(this.state.dollarValue).format('0,0.')}</a></div>
          </div>
       
         return (
@@ -215,13 +220,13 @@ round(value){
                <h3>Ukraine DAO</h3>
                
                </div>
-               <div>Website: <a href="https://www.ukrainedao.love/" target ="blank">https://www.ukrainedao.love/</a></div>
-               <h4>Ethereum Wallet: <a href="https://etherscan.io/address/0x4508401bade71ae75fe70c97fe585d734f975502" target ="blank">0x4508401BaDe71aE75fE70c97fe585D734f975502</a></h4>
+               <div>Website: <a href="https://www.ukrainedao.love/" target ="blank">https://www.ukrainedao.love</a></div>
+               <h4>Ethereum Wallet: <a href="https://etherscan.io/address/0x633b7218644b83D57d90e7299039ebAb19698e9C" target ="blank">0x633b7218644b83D57d90e7299039ebAb19698e9C</a></h4>
                {eth}
                
-               <p> Wrapped Ether Balance: 0 WETH <a href="https://etherscan.io/tx/0x05c870ed4b2b9dd287c8ac497b6c5ff1db11521df2bc454eb4bd3aa943c247e2" target ="blank">Reserved On Bid</a></p>
+               <p> Current Donation Value: ${numeral(this.state.ethBalance * this.state.dollarPerEth).format('0,0')}</p>
                {total}
-               {dollar}
+               
                </div>
                <div className="foot">
                 <h4> A DAO raising ETH to help Ukrainian civilians suffering from the war in Ukraine, organized by humanitarian activists such as PussyRiot & PleaserDAO.</h4>
