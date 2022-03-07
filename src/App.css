@@ -712,5 +712,27 @@ overflow-y: scroll;
 
   .viewButton:hover{
     color:white;
+    color:rgb(104, 160, 206);
+    color:rgb(36, 216, 36);
+    color:rgb(212, 212, 212);
+    color:rgb(82, 10, 82);
+    color:rgb(34, 238, 102);
   }
+
+  .back{
+    background: rgba(0, 5, 14, 0.637);
+    padding-top: 30px;
+    padding-bottom: 20px;
+    width: 80%!important;
+    margin-left:10%;
+    margin-right:10%;
+  }
+
+  @media(max-width:550px){
+    .back{
+      width: 98%!important;
+      margin:1%;
+    }
+  }
+  
 

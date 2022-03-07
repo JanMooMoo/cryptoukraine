@@ -43,6 +43,7 @@ class App extends Component {
         dollar_BNB:0,
 
         viewGraph:false,
+        doughnut:true,
          
       }
     }
@@ -91,11 +92,19 @@ class App extends Component {
   
 
    handleButton =()=>{
-     if(this.state.ethGov.totalDonation !== undefined || this.state.ethGov.totalDonation === 0){
+    if(this.state.ethGov.totalDonation !== undefined || this.state.ethGov.totalDonation === 0){
     setTimeout(()=>this.setState((prevState)=>{
       return {viewGraph: !prevState.viewGraph};
     }),600);
     }
+   };
+
+   handleChart =()=>{
+    // if(this.state.ethGov.totalDonation !== undefined || this.state.ethGov.totalDonation === 0){
+    setTimeout(()=>this.setState((prevState)=>{
+      return {doughnut: !prevState.doughnut};
+    }),200);
+  //  }
    };
   
   
@@ -111,19 +120,27 @@ class App extends Component {
      let body = '';
      let buttonText = '';
      let button = '';
+     let chartStyle = '';
 
      if(this.state.viewGraph){
-       body =  <Bargraph dao={this.state.Dao} unchain={this.state.Unchain} relief={this.state.relief} binance={this.state.binance} bitcoin={this.state.btcGov} ethereum={this.state.ethGov}/>
+       body =  <Bargraph dao={this.state.Dao} unchain={this.state.Unchain} relief={this.state.relief} binance={this.state.binance} bitcoin={this.state.btcGov} ethereum={this.state.ethGov} doughnut={this.state.doughnut}/>
        buttonText = 'View Donations'; 
+      
+       if(this.state.doughnut){
+       chartStyle =  'View Bar Chart';
+       }
+       else{
+        chartStyle =  'View Doughnut Chart';
+       }
      }
 
      else{
       body = <div>
 
-      <div className="column">
+<     div className="column">
       <UkraineGOV onChange={this.dollarEth}/>
       </div>
-       
+      
       <div className="column">
       <UkraineGOV_BTC onChange={this.dollarBtc}/>
       </div>
@@ -146,12 +163,13 @@ class App extends Component {
        
       </div>  
 
-      buttonText = 'View Graph';
+      buttonText = 'View Chart';
      }
 
-     if(this.state.ethGov.totalDonation !== undefined){
+     if(this.state.Dao.dollarValue !== undefined){
+   //  if(this.state.ethGov.totalDonation !== undefined){
        button = <div>
-      <button onClick={this.handleButton} className="viewButton">{buttonText}</button>
+      <button onClick={this.handleButton} className="viewButton">{buttonText}</button> {this.state.viewGraph && <button onClick={this.handleChart} className="viewButton">{chartStyle}</button>}
        </div>
      }
 
