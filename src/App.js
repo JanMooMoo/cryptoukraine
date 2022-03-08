@@ -12,17 +12,10 @@ import Binance from './Components/Binance';
 import UkraineGOV from './Components/UkraineGOV';
 import UkraineGOV_BTC from './Components/UkraineGOV_BTC';
 
-import banner from './banner.png'
 
 
-
-
-
-
-let Web3 = require('web3');
 let numeral = require('numeral');
 
-let x = 0;
 class App extends Component {
     constructor(props) {
       super(props);

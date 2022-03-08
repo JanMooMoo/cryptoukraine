@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import Flag from '../flag2.png';
 import Artist from '../artist.jpg';
 
 class Navbar extends Component {

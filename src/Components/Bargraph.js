@@ -1,12 +1,10 @@
 import React, { Component } from 'react';
-import Flag from '../flag2.png';
-import Artist from '../artist.jpg';
 //import { Bar, Doughnut} from '@react-chartjs-2/react-chartjs-2';
 //import { Bar } from "@reactchartjs/react-chart.js";
 import { Bar, Doughnut} from 'react-chartjs-2';
 
 
-let numeral = require('numeral');
+//let numeral = require('numeral');
 
 class Bargraph extends Component {
     _isMounted = false;
