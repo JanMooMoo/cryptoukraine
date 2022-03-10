@@ -182,7 +182,7 @@ round(value){
     
                </div>
                <div>Website: <a href="https://gitcoin.co/grants/explorer/?page=1&limit=12&me=false&sort_option=weighted_shuffle&collection_id=false&network=mainnet&state=active&profile=false&sub_round_slug=gr13-ukraine&collections_page=1&grant_regions=&grant_types=&grant_tags=&tenants=&idle=false&featured=true&round_type=false&round_num=13&customer_name=Ukraine&tab=grants" target ="blank">Gitcoin Grants</a></div>
-               <h4>Ethereum Wallet: <a href="https://etherscan.io/address/0xde21f729137c5af1b01d73af1dc21effa2b8a0d6" target ="blank">0xde21f729137c5af1b01d73af1dc21effa2b8a0d6</a></h4>
+               
 
             
                {dollar}
