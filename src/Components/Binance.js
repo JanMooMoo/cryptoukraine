@@ -1,11 +1,9 @@
 import React, { Component } from 'react';
 import AnimatedNumber from 'react-animated-number';
 import binanceLogo from '../binance.png';
+//import { ApiPromise, WsProvider } from '@polkadot/api';
 
-
-//let Web3 = require('web3');
 let numeral = require('numeral');
-
 
 class Binance extends Component {
     _isMounted = false;
@@ -31,6 +29,7 @@ class Binance extends Component {
     
 
 async loadBalance(){
+
     if(this._isMounted){
     this.setState({prevEth:this.state.ethBalance,prevState:this.state.dollarValue},()=>console.log())
 
@@ -179,7 +178,7 @@ round(value){
         
       
         let total = <div>
-            <a href="https://etherscan.io/tx/0xf638a4c9ade8c7366b685a1ba22e19246e2b6bdc1f41966a658661174c727ba4" target ="blank"> Moved:  {numeral(this.state.unicef_BUSD).format('0,0.00')} BUSD to UNICEF</a>
+            <a href="https://etherscan.io/tx/0xf638a4c9ade8c7366b685a1ba22e19246e2b6bdc1f41966a658661174c727ba4" target ="blank"> Moved: ${numeral(this.state.unicef_BUSD).format('0,0.00')} BUSD to UNICEF</a>
             <div><a href="https://explorer.binance.org/tx/806B48180F3121DB899DB19B96CADD9D333CC3632D3EFF6CF44EB223EB3D3A78" target ="blank">  {numeral(this.state.isans_BNB).format('0,0.00')} BNB to ISANS</a></div>
             <div><a href="https://explorer.binance.org/tx/806B48180F3121DB899DB19B96CADD9D333CC3632D3EFF6CF44EB223EB3D3A78" target ="blank" className="total">Total Donated Value: $ {numeral(this.state.dollarValue).format('0,0.00')}</a></div>
          </div>

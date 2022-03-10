@@ -8,6 +8,8 @@ import UkraineDAO from './Components/UkraineDAO';
 import Unchained from './Components/Unchained';
 import Reli3f from './Components/Relief';
 import Binance from './Components/Binance';
+import Aidforukraine from './Components/Aidforukraine';
+import Gitcoin from './Components/Gitcoin';
 
 import UkraineGOV from './Components/UkraineGOV';
 import UkraineGOV_BTC from './Components/UkraineGOV_BTC';
@@ -28,6 +30,7 @@ class App extends Component {
         Unchain:0,
         relief:0,
         binance:0,
+        aid:0,
 
         dao_eth:0,
         relief_eth:0,
@@ -52,7 +55,6 @@ class App extends Component {
   
    dollarBtc =(data)=>{
     if(data !== this.state.btcGov){
-      //console.log(data)
     this.setState({btcGov:data},()=>console.log());
     }
   } 
@@ -78,6 +80,11 @@ class App extends Component {
 
    dollarBinance =(data)=>{
     this.setState({binance:data});
+    
+   } 
+
+   dollarAid =(data)=>{
+    this.setState({aid:data});
     
    } 
 
@@ -120,7 +127,7 @@ class App extends Component {
      let chartStyle = '';
 
      if(this.state.viewGraph){
-       body =  <Bargraph dao={this.state.Dao} unchain={this.state.Unchain} relief={this.state.relief} binance={this.state.binance} bitcoin={this.state.btcGov} ethereum={this.state.ethGov} doughnut={this.state.doughnut}/>
+       body =  <Bargraph dao={this.state.Dao} unchain={this.state.Unchain} relief={this.state.relief} binance={this.state.binance} bitcoin={this.state.btcGov} ethereum={this.state.ethGov} aid={this.state.aid} doughnut={this.state.doughnut}/>
        buttonText = 'View Donations'; 
       
        if(this.state.doughnut){
@@ -140,8 +147,9 @@ class App extends Component {
       
       <div className="column">
       <UkraineGOV_BTC onChange={this.dollarBtc}/>
-      </div> 
-        
+      </div>   
+
+    
       <div className="column">
       <UkraineDAO onChange={this.dollarDao}/>
       </div>   
@@ -156,7 +164,17 @@ class App extends Component {
 
        <div className="column">
       <Binance onChange={this.dollarBinance}/>
-      </div>  
+      </div> 
+
+      <div className="column">
+      <Aidforukraine onChange={this.dollarAid}/>
+      </div> 
+
+      <div className="column">
+      <Gitcoin />
+      </div> 
+
+       
        
       </div>  
 
@@ -182,7 +200,7 @@ class App extends Component {
         <div className="body">
         <div className="row">
         <div className="banner">
-           <h3 className="cardText">Total Donation: ${numeral(this.state.Dao.dollarValue + this.state.Unchain.dollarValue + this.state.relief.dollarValue + this.state.binance.dollarValue + this.state.btcGov.totalDonation + this.state.ethGov.totalDonation  ).format('0,0.00')}</h3>
+           <h3 className="cardText">Total Donation: ${numeral(this.state.Dao.dollarValue + this.state.Unchain.dollarValue + this.state.relief.dollarValue + this.state.binance.dollarValue + this.state.btcGov.totalDonation + this.state.ethGov.totalDonation + this.state.aid.totalDonation  ).format('0,0.00')}</h3>
         
          </div>
         

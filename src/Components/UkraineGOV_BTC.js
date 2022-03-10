@@ -78,8 +78,7 @@ fetch('https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=u
 }  
 total(){
     if(this._isMounted){
-    this.setState({dollarValue:this.state.dollarPerbtc * this.state.btcBalance},()=>console.log())
-    this.setState({totalDonation:parseInt(this.state.dollarPerbtc) * parseInt(this.state.totalBTC)},()=>console.log()) 
+    this.setState({dollarValue:this.state.dollarPerbtc * this.state.btcBalance,totalDonation:parseInt(this.state.dollarPerbtc) * parseInt(this.state.totalBTC)},()=>console.log())
     if(this.state.prevTotal !== this.state.totalDonation){
     this.handleBtc();
     }

@@ -31,11 +31,11 @@ class Bargraph extends Component {
           gradient2.addColorStop(0, 'rgb(100, 101, 102)');
           
           return {
-            labels: ['Reli3f','Unchain', 'Binance', 'Ukraine DAO', 'Govt of Ukraine-BTC', 'Govt of Ukraine-ETH'],
+            labels: ['Reli3f','Unchain','Aid for Ukraine','Binance', 'Ukraine DAO', 'Govt of Ukraine-BTC', 'Govt of Ukraine-ETH'],
             datasets: [{
               label:'Hydro',
               fontColor:'black',
-              backgroundColor: ['rgb(164, 76, 172)','rgb(36, 216, 36)','rgb(82, 10, 82)','rgb(172, 2, 2)','rgb(245, 188, 64)','rgb(104, 160, 206)'],
+              backgroundColor: ['rgb(164, 76, 172)','rgb(36, 216, 36)','rgb(170, 50, 2)','rgb(82, 10, 82)','rgb(172, 2, 2)','rgb(245, 188, 64)','rgb(104, 160, 206)'],
               borderColor: 'white',
               borderWidth: 2,
               hoverBackgroundColor: [],
@@ -46,6 +46,7 @@ class Bargraph extends Component {
               data: [
                 (this.props.relief.dollarValue/1000000).toFixed(2),
                 (this.props.unchain.dollarValue/1000000).toFixed(2),
+                (this.props.aid.totalDonation/1000000).toFixed(2),
                 (this.props.binance.dollarValue/1000000).toFixed(2),
                 (parseInt(this.props.dao.dollarValue)/1000000).toFixed(2),
                 (this.props.bitcoin.totalDonation/1000000).toFixed(2),
@@ -71,7 +72,7 @@ class Bargraph extends Component {
               //labels: this.state.label.map(event=>[event]),
               //data: this.state.data.map(event=>event),
             
-              labels: ['Reli3f','Unchain','Binance','UkraineDAO','Ukraine Govt-BTC','Ukraine Govt-ETH'],
+              labels: ['Reli3f','Unchain','Aid for Ukraine','Binance','UkraineDAO','Ukraine Govt-BTC','Ukraine Govt-ETH'],
              /* datasets: [{
                 label:'Hydro',
                 fontColor:'black',
@@ -95,8 +96,9 @@ class Bargraph extends Component {
                 weight:.2,
                 borderAlign:'center',
                 borderRadius:5,
-                backgroundColor: ['rgb(0, 5, 14)','rgb(0, 5, 14)','rgb(0, 5, 14)','rgb(0, 5, 14)','rgb(0, 5, 14)','rgb(0, 5, 14)'],
+                backgroundColor: ['rgb(0, 5, 14)','rgb(0, 5, 14)','rgb(0, 5, 14)','rgb(0, 5, 14)','rgb(0, 5, 14)','rgb(0, 5, 14)','rgb(0, 5, 14)'],
                 borderColor: [
+                  'white',
                   'white',
                   'white',
                   'white',
@@ -108,6 +110,7 @@ class Bargraph extends Component {
                 data: [
                 (this.props.relief.dollarValue/1000000).toFixed(2),
                 (this.props.unchain.dollarValue/1000000).toFixed(2),
+                (this.props.aid.totalDonation/1000000).toFixed(2),
                 (this.props.binance.dollarValue/1000000).toFixed(2),
                 (parseInt(this.props.dao.dollarValue)/1000000).toFixed(2),
                 (this.props.bitcoin.totalDonation/1000000).toFixed(2),

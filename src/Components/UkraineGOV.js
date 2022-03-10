@@ -59,7 +59,8 @@ async loadBalance(){
   .then(res => res.json())
   .then((data) => {
      //console.log(data)
-
+     
+     //console.log('shit',6689662552658357880500/1000000000000000000)
     this.setState({ethBalance:data.balance/1000000000000000000, spentEth:data.total_sent/1000000000000000000,totalEth:data.total_received/1000000000000000000},()=>console.log()) 
     //this.setState({dollarValue:this.state.dollarPerbtc * this.state.btcBalance})
    // this.setState({totalDonation:parseInt(this.state.dollarPerbtc) * parseInt(this.state.totalBTC)},()=>console.log()) 
