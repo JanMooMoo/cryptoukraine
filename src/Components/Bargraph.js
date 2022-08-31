@@ -45,7 +45,7 @@ class Bargraph extends Component {
               borderAlign:'center',
               data: [
                 (this.props.relief.dollarValue/1000000).toFixed(2),
-                (this.props.unchain.dollarValue/1000000).toFixed(2),
+                ((Number(this.props.unchain.dollarValue) + 9311831) /1000000 ).toFixed(2),
                 (this.props.aid.totalDonation/1000000).toFixed(2),
                 (this.props.binance.dollarValue/1000000).toFixed(2),
                 (parseInt(this.props.dao.dollarValue)/1000000).toFixed(2),
@@ -109,7 +109,7 @@ class Bargraph extends Component {
                 //['Reli3f','Binance','Unchain','UkraineDAO','Ukraine Govt-BTC','Ukraine Govt-ETH']
                 data: [
                 (this.props.relief.dollarValue/1000000).toFixed(2),
-                (this.props.unchain.dollarValue/1000000).toFixed(2),
+                ((Number(this.props.unchain.dollarValue) + 9311831)/1000000).toFixed(2),
                 (this.props.aid.totalDonation/1000000).toFixed(2),
                 (this.props.binance.dollarValue/1000000).toFixed(2),
                 (parseInt(this.props.dao.dollarValue)/1000000).toFixed(2),

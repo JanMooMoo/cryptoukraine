@@ -200,7 +200,7 @@ class App extends Component {
         <div className="body">
         <div className="row">
         <div className="banner">
-           <h3 className="cardText">Total Donation: ${numeral(this.state.Dao.dollarValue + this.state.Unchain.dollarValue + this.state.relief.dollarValue + this.state.binance.dollarValue + this.state.btcGov.totalDonation + this.state.ethGov.totalDonation + this.state.aid.totalDonation  ).format('0,0.00')}</h3>
+           <h3 className="cardText">Total Donation: ${numeral(this.state.Dao.dollarValue + this.state.Unchain.dollarValue + 9311831 + this.state.relief.dollarValue + this.state.binance.dollarValue + this.state.btcGov.totalDonation + this.state.ethGov.totalDonation + this.state.aid.totalDonation  ).format('0,0.00')}</h3>
         
          </div>
         
